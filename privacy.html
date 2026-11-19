@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — KeepThread</title>
+    <style>
+      body {
+        margin: 0;
+        background: #0c0e14;
+        color: #eceef4;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        line-height: 1.7;
+      }
+      .wrap { max-width: 740px; margin: 0 auto; padding: 48px 20px 80px; }
+      h1 { font-size: 30px; margin-bottom: 8px; }
+      h2 { font-size: 18px; margin-top: 32px; color: #c4b5fd; }
+      p, li { color: #b9c0ce; font-size: 15px; }
+      a { color: #a78bfa; }
+      code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 5px; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p><a href="./index.html">← Back to KeepThread</a></p>
+      <h1>KeepThread Privacy Policy</h1>
+      <p><strong>Effective Date:</strong> November 19, 2026</p>
+
+      <h2>1. Zero Data Collection for Your Conversations</h2>
+      <p>
+        KeepThread is engineered as a <strong>100% local-first browser extension</strong>. We do not
+        operate a backend server that receives, stores, logs, or analyzes your AI prompts,
+        responses, browsing history, or exported Markdown files.
+      </p>
+
+      <h2>2. Where Your Data Lives</h2>
+      <ul>
+        <li>
+          <strong>Browser Local Storage &amp; IndexedDB:</strong> Archived conversations, search
+          indexes, user preferences, and your selected local folder handle are stored exclusively on
+          your own device inside Chrome/Edge local storage and IndexedDB.
+        </li>
+        <li>
+          <strong>Local Obsidian Vault Folder:</strong> When you explicitly link a local folder via
+          the browser File System Access API, KeepThread writes Markdown files directly to your
+          machine. You can revoke access or unlink the folder at any time.
+        </li>
+      </ul>
+
+      <h2>3. Minimal Host Permissions</h2>
+      <p>
+        KeepThread never requests <code>&lt;all_urls&gt;</code> permissions. Content scripts are
+        strictly scoped to the 5 supported AI chat domains (<code>chatgpt.com</code> /
+        <code>chat.openai.com</code>, <code>gemini.google.com</code>, <code>perplexity.ai</code>,
+        <code>chat.deepseek.com</code>, and <code>grok.com</code>).
+      </p>
+
+      <h2>4. Optional Pro License Verification</h2>
+      <p>
+        If you choose to purchase and activate a Lifetime Pro license key, KeepThread communicates
+        directly with <strong>Dodo Payments</strong> (<code>live.dodopayments.com</code>) solely to
+        activate, validate, or deactivate your license key and device label. No conversation text or
+        browsing URLs are ever included in license requests. Payment details are handled directly by
+        Dodo Payments as our Merchant of Record.
+      </p>
+
+      <h2>5. Contact</h2>
+      <p>
+        Questions or privacy inquiries? Contact us at
+        <a href="mailto:support@jianlanzhiwei.com">support@jianlanzhiwei.com</a>.
+      </p>
+    </div>
+  </body>
+</html>
