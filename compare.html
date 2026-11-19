@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KeepThread vs Obsidian Web Clipper &amp; ChatGPT Exporters (2026 Comparison)</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Honest 2026 comparison of KeepThread vs Obsidian Web Clipper vs generic AI chat exporters: lossless note preservation, KaTeX math, Perplexity footnotes, local image saving, and Obsidian Bases."
+    />
+    <style>
+      :root {
+        --bg: #0c0e14;
+        --surface: #141824;
+        --surface-2: #0f121c;
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #f3f4f8;
+        --muted: #9aa3b2;
+        --accent: #7c5cff;
+        --emerald: #34d399;
+        --amber: #fbbf24;
+        --rose: #fb7185;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 50% -10%, rgba(124, 92, 255, 0.2), transparent 45%), var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+      }
+      .wrap { max-width: 1000px; margin: 0 auto; padding: 32px 20px 84px; }
+      header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 52px; }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: #fff; text-decoration: none; }
+      .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 14px; }
+      .nav a:hover, .nav a.active { color: #fff; }
+      .pill {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(124, 92, 255, 0.4);
+        background: rgba(124, 92, 255, 0.14);
+        color: #c4b5fd;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; margin: 16px 0 12px; letter-spacing: -0.02em; }
+      h2 { font-size: 22px; margin: 52px 0 14px; letter-spacing: -0.015em; }
+      .sub { font-size: 16px; color: var(--muted); max-width: 720px; margin: 0 0 32px; }
+      code {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 6px;
+        border-radius: 5px;
+        font-size: 13px;
+        color: #ddd6fe;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+      table { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 14px; }
+      th, td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+      th {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      th.kt-col, td.kt-col {
+        background: rgba(124, 92, 255, 0.09);
+        border-left: 1px solid rgba(124, 92, 255, 0.25);
+        border-right: 1px solid rgba(124, 92, 255, 0.25);
+      }
+      th.kt-col { color: #c4b5fd; }
+      tr:last-child td { border-bottom: none; }
+      .yes { color: var(--emerald); font-weight: 600; }
+      .partial { color: var(--amber); font-weight: 500; }
+      .no { color: var(--rose); }
+      .feat-name { font-weight: 600; color: #fff; }
+      .feat-sub { display: block; font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+      .card h3 { margin: 0 0 8px; font-size: 16px; }
+      .card p { margin: 0; font-size: 14px; color: var(--muted); }
+
+      .cta-banner {
+        margin-top: 52px;
+        background: linear-gradient(135deg, rgba(124, 92, 255, 0.2), var(--surface));
+        border: 1px solid rgba(124, 92, 255, 0.45);
+        border-radius: 18px;
+        padding: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 14px;
+        text-decoration: none; transition: transform 0.15s ease;
+      }
+      .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 26px rgba(124, 92, 255, 0.3); }
+      .btn-secondary { background: var(--surface-2); color: #fff; border: 1px solid var(--border); }
+      .btn:hover { transform: translateY(-1px); }
+
+      footer {
+        margin-top: 68px; padding-top: 24px; border-top: 1px solid var(--border);
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        font-size: 13px; color: var(--muted);
+      }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: #fff; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs>
+              <linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7C5CFF" />
+                <stop offset="100%" stop-color="#4338CA" />
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)" />
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF" />
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Guide</a>
+          <a href="./compare.html" class="active">Compare</a>
+          <a href="./index.html#pricing">Pricing</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">Honest 2026 Comparison · Built Specifically for Obsidian + AI</span>
+      <h1>KeepThread vs. Obsidian Web Clipper &amp; Generic AI Exporters</h1>
+      <p class="sub">
+        Obsidian Web Clipper is fantastic for clipping articles and blogs. But AI chat apps
+        (ChatGPT, Gemini, Perplexity, DeepSeek, Grok) are stateful, multi-turn DOMs with KaTeX math,
+        expiring image CDN URLs, thinking blocks, and evolving threads—that's where KeepThread is
+        purpose-built.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:28%;">Capability</th>
+              <th class="kt-col" style="width:24%;">KeepThread</th>
+              <th style="width:24%;">Obsidian Web Clipper</th>
+              <th style="width:24%;">Generic AI Exporters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="feat-name">Lossless Re-Sync (Notes &amp; YAML Preserved)</span>
+                <span class="feat-sub">Never overwrites your <code>## My Notes</code>, custom YAML properties, or <code>[[backlinks]]</code></span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Yes (Automatic Merge)</span></td>
+              <td><span class="no">✕ Overwrites or duplicates</span></td>
+              <td><span class="no">✕ Creates (1).md or overwrites</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">5-in-1 Live AI Adapters</span>
+                <span class="feat-sub">ChatGPT, Gemini, Perplexity, DeepSeek &amp; Grok</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Dedicated DOM adapters</span></td>
+              <td><span class="partial">△ Generic article extractor</span></td>
+              <td><span class="partial">△ Usually ChatGPT-only</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">KaTeX / MathJax LaTeX Fidelity</span>
+                <span class="feat-sub">Extracts raw TeX cleanly without duplicated visual gibberish</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Clean <code>$...$</code> / <code>$$...$$</code></span></td>
+              <td><span class="no">✕ Often duplicates or breaks</span></td>
+              <td><span class="partial">△ Inconsistent across sites</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Perplexity Footnotes &amp; DeepSeek Thinking</span>
+                <span class="feat-sub"><code>[^1]</code> footnotes + <code>&gt; [!note]- Thinking Process</code></span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Native Obsidian syntax</span></td>
+              <td><span class="no">✕ Plain text / lost links</span></td>
+              <td><span class="no">✕ Not supported</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Local Image Saving (Anti-403)</span>
+                <span class="feat-sub">Saves images into <code>assets/keepthread/</code> as <code>![[...]]</code></span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Built-in local assets</span></td>
+              <td><span class="no">✕ Remote URLs expire (403)</span></td>
+              <td><span class="no">✕ Remote URLs expire</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Cherry-Pick Turns</span>
+                <span class="feat-sub">Sync only golden answers instead of 40 turns of debugging noise</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Turn-level checkboxes</span></td>
+              <td><span class="no">✕ Full page or manual highlight</span></td>
+              <td><span class="no">✕ Full thread dump only</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Obsidian Bases (<code>.base</code>) &amp; MOC Index</span>
+                <span class="feat-sub">Auto-maintained filterable Obsidian 1.9+ database view</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Auto-generated</span></td>
+              <td><span class="no">✕ Manual setup</span></td>
+              <td><span class="no">✕ None</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Cross-AI Offline Search &amp; Context Prompt</span>
+                <span class="feat-sub"><code>Cmd+Shift+K</code> search + 1-click Copy Context to another AI</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ IndexedDB + Context Prompt</span></td>
+              <td><span class="no">✕ No AI thread index</span></td>
+              <td><span class="partial">△ Often requires cloud account</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Privacy &amp; Host Permissions</span>
+                <span class="feat-sub">Zero backend server, no <code>&lt;all_urls&gt;</code> access</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Scoped to 5 AI sites only</span></td>
+              <td><span class="partial">△ Requests broad page access</span></td>
+              <td><span class="no">✕ Many request <code>&lt;all_urls&gt;</code> + cloud</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Pricing Model</span>
+                <span class="feat-sub">Transparent, anti-subscription</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Free Forever + $19 One-Time Pro</span></td>
+              <td><span class="yes">✓ Free</span></td>
+              <td><span class="no">✕ $5–$10/mo recurring subscriptions</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>When should you use each tool?</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Keep Obsidian Web Clipper for web articles</h3>
+          <p>
+            If you're clipping blog posts, news articles, or documentation pages across the open web,
+            Obsidian Web Clipper is awesome and we recommend keeping it installed alongside
+            KeepThread.
+          </p>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,255,0.45);">
+          <h3>Use KeepThread for every AI research thread</h3>
+          <p>
+            Whenever you're working inside ChatGPT, Gemini, Perplexity, DeepSeek, or Grok—and want
+            intact math, citations, local images, cherry-picked answers, and
+            <strong>re-syncing that never wipes your Obsidian edits</strong>—KeepThread is built
+            specifically for that workflow.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h3 style="font-size:18px;margin:0 0 4px;">Try KeepThread free—upgrade only if you love it</h3>
+          <p style="margin:0;font-size:14px;color:var(--muted);">
+            Unlimited clean single-thread Markdown exports + 5 free Lossless Vault syncs. Lifetime
+            Pro is $19 one-time across up to 3 devices.
+          </p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a
+            class="btn btn-primary"
+            href="https://checkout.dodopayments.com/buy/pdt_0NsGLZDIIOYalSl7mmb95?quantity=1"
+          >
+            Get Lifetime Pro ($19)
+          </a>
+          <a class="btn btn-secondary" href="./guide.html">See Live Before &amp; After</a>
+        </div>
+      </div>
+
+      <footer>
+        <span>© 2026 KeepThread · Local-first software</span>
+        <div style="display:flex;gap:16px;">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Quick Guide</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="./privacy.html">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
