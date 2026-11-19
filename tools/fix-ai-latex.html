@@ -439,14 +439,42 @@ print("Ready for Obsidian")
           });
         }
 
-        // 4. Trim broken leading/trailing spaces inside single-line $ ... $
+        // 4. Trim broken leading/trailing spaces inside single-line $ ... $ using balanced token scan
         if (optTrimInline.checked) {
-          text = text.replace(/(?<!\$)\$(?!\$)([ \t]+[^$\n]+?|[^$\n]+?[ \t]+)(?<!\$)\$(?!\$)/g, (m, inner) => {
-            const trimmed = inner.trim();
-            if (!trimmed || /^\d/.test(trimmed)) return m; // Avoid touching currency like "$ 50"
-            inlineCount++;
-            return '$' + trimmed + '$';
-          });
+          // Stash display math $$...$$ first so scanner only sees single inline $ pairs
+          text = text.replace(/\$\$[\s\S]*?\$\$/g, stash);
+          text = text
+            .split('\n')
+            .map((line) => {
+              const positions = [];
+              for (let i = 0; i < line.length; i++) {
+                if (line[i] === '$' && line[i - 1] !== '\\') {
+                  positions.push(i);
+                }
+              }
+              if (positions.length < 2) return line;
+              let out = '';
+              let cursor = 0;
+              for (let p = 0; p + 1 < positions.length; p += 2) {
+                const open = positions[p];
+                const close = positions[p + 1];
+                const inner = line.slice(open + 1, close);
+                const trimmed = inner.trim();
+                const hasEdgeSpace = inner !== trimmed;
+                const looksLikeCurrency = /^\d[\d,.]*(?:\s|$)/.test(trimmed) && !/[\\^_=+\-*/]/.test(trimmed);
+                out += line.slice(cursor, open);
+                if (hasEdgeSpace && trimmed && !looksLikeCurrency) {
+                  inlineCount++;
+                  out += '$' + trimmed + '$';
+                } else {
+                  out += line.slice(open, close + 1);
+                }
+                cursor = close + 1;
+              }
+              out += line.slice(cursor);
+              return out;
+            })
+            .join('\n');
         }
 
         // Restore stashed code blocks
