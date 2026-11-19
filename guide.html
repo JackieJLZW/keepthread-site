@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick Start Guide &amp; Lossless Sync — KeepThread</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="30-second setup guide for KeepThread: sync ChatGPT, Gemini, Perplexity, DeepSeek, and Grok to Obsidian with lossless note preservation, clean LaTeX, and offline search."
+    />
+    <style>
+      :root {
+        --bg: #0c0e14;
+        --surface: #141824;
+        --surface-2: #0f121c;
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #f3f4f8;
+        --muted: #9aa3b2;
+        --accent: #7c5cff;
+        --emerald: #34d399;
+        --rose: #fb7185;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 50% -10%, rgba(124, 92, 255, 0.2), transparent 42%), var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+      }
+      .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 84px; }
+      header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 52px; }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: #fff; text-decoration: none; }
+      .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 14px; }
+      .nav a:hover, .nav a.active { color: #fff; }
+      .pill {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(124, 92, 255, 0.4);
+        background: rgba(124, 92, 255, 0.14);
+        color: #c4b5fd;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; margin: 16px 0 12px; letter-spacing: -0.02em; }
+      h2 { font-size: 24px; margin: 56px 0 14px; letter-spacing: -0.015em; }
+      h3 { font-size: 16px; margin: 0 0 8px; }
+      .sub { font-size: 16px; color: var(--muted); max-width: 680px; margin: 0 0 28px; }
+      code {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 6px;
+        border-radius: 5px;
+        font-size: 13px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        color: #ddd6fe;
+      }
+      kbd {
+        background: #0f1117;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 6px;
+        padding: 2px 7px;
+        font-size: 12px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        color: #c4b5fd;
+      }
+      .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+      .step-num {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 28px; height: 28px; border-radius: 999px;
+        background: rgba(124, 92, 255, 0.22); color: #c4b5fd;
+        font-size: 13px; font-weight: 700; margin-bottom: 12px;
+      }
+      .card p { margin: 0; font-size: 14px; color: var(--muted); }
+
+      /* Interactive Before / After Tabs */
+      .tab-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+      .tab-btn {
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--muted);
+        padding: 9px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.15s ease;
+      }
+      .tab-btn:hover { color: #fff; border-color: rgba(124, 92, 255, 0.5); }
+      .tab-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(124, 92, 255, 0.28);
+      }
+      .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+      .compare-box {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      .compare-box.good { border-color: rgba(52, 211, 153, 0.45); }
+      .compare-box.bad { border-color: rgba(251, 113, 133, 0.35); }
+      .compare-head {
+        padding: 12px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--border);
+      }
+      .compare-box.bad .compare-head { background: rgba(251, 113, 133, 0.1); color: #fda4af; }
+      .compare-box.good .compare-head { background: rgba(52, 211, 153, 0.1); color: #6ee7b7; }
+      pre {
+        margin: 0;
+        padding: 16px;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: #dbe2f0;
+        background: var(--surface-2);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .note-panel {
+        display: none;
+      }
+      .note-panel.active {
+        display: block;
+      }
+      .highlight-box {
+        background: linear-gradient(180deg, rgba(52, 211, 153, 0.09), var(--surface));
+        border: 1px solid rgba(52, 211, 153, 0.35);
+        border-radius: 16px;
+        padding: 22px;
+        margin-top: 18px;
+      }
+      .highlight-box ul { margin: 10px 0 0; padding-left: 18px; color: #cbd5e1; font-size: 14px; }
+      .highlight-box li { margin-bottom: 8px; }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        font-size: 14px;
+      }
+      th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+      th { color: #c4b5fd; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(255, 255, 255, 0.03); }
+      td { color: var(--muted); }
+      tr:last-child td { border-bottom: none; }
+
+      details {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+      }
+      summary { cursor: pointer; font-weight: 600; font-size: 15px; color: #fff; }
+      details p { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+
+      .cta-banner {
+        margin-top: 56px;
+        background: linear-gradient(135deg, rgba(124, 92, 255, 0.2), var(--surface));
+        border: 1px solid rgba(124, 92, 255, 0.45);
+        border-radius: 18px;
+        padding: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 14px;
+        text-decoration: none; transition: transform 0.15s ease;
+      }
+      .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 26px rgba(124, 92, 255, 0.3); }
+      .btn-secondary { background: var(--surface-2); color: #fff; border: 1px solid var(--border); }
+      .btn:hover { transform: translateY(-1px); }
+
+      footer {
+        margin-top: 68px; padding-top: 24px; border-top: 1px solid var(--border);
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        font-size: 13px; color: var(--muted);
+      }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: #fff; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs>
+              <linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7C5CFF" />
+                <stop offset="100%" stop-color="#4338CA" />
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)" />
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF" />
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html" class="active">Guide</a>
+          <a href="./index.html#pricing">Pricing</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">30-Second Setup · Zero Cloud · Lossless Sync</span>
+      <h1>KeepThread Quick Start Guide</h1>
+      <p class="sub">
+        Link your local Obsidian Vault once, sync conversations from ChatGPT, Gemini, Perplexity,
+        DeepSeek, and Grok in one click—and edit your notes freely without ever losing your custom
+        tags or <code>[[backlinks]]</code> on re-sync.
+      </p>
+
+      <h2>1. Get running in 30 seconds</h2>
+      <div class="steps">
+        <div class="card">
+          <div class="step-num">1</div>
+          <h3>Install &amp; Pin Icon</h3>
+          <p>
+            Install KeepThread in Chrome or Microsoft Edge, click the top-right puzzle icon
+            (<strong>Extensions</strong>), and pin <strong>KeepThread</strong> to your toolbar.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-num">2</div>
+          <h3>Link Obsidian Vault</h3>
+          <p>
+            Open the welcome screen (or <strong>Obsidian Vault</strong> tab) and select your local
+            Vault folder once. KeepThread uses the browser File System Access API—zero local server
+            setup.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-num">3</div>
+          <h3>1-Click In-Place Sync</h3>
+          <p>
+            Open any chat on ChatGPT, Gemini, Perplexity, DeepSeek, or Grok and click
+            <strong>Sync to Vault</strong> (or press <kbd>Alt+Shift+S</kbd>). Existing tabs need
+            one refresh after first install.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-num">4</div>
+          <h3>Search Offline Anytime</h3>
+          <p>
+            Press <kbd>⌘⇧K</kbd> / <kbd>Ctrl+Shift+K</kbd> anywhere in your browser to search
+            prompts, code blocks, and citations across all 5 AI platforms locally in IndexedDB.
+          </p>
+        </div>
+      </div>
+
+      <h2>2. See the difference: Before vs. KeepThread</h2>
+      <p class="sub" style="margin-bottom:18px;">
+        Click a real-world scenario below to compare ordinary copy-paste / exporters with
+        KeepThread's Obsidian-native output.
+      </p>
+
+      <div class="tab-bar" role="tablist">
+        <button class="tab-btn active" data-tab="lossless" role="tab" aria-selected="true">
+          Lossless Re-Sync (Notes Preserved)
+        </button>
+        <button class="tab-btn" data-tab="latex" role="tab" aria-selected="false">
+          KaTeX / LaTeX Math
+        </button>
+        <button class="tab-btn" data-tab="perplexity" role="tab" aria-selected="false">
+          Perplexity Citations
+        </button>
+        <button class="tab-btn" data-tab="deepseek" role="tab" aria-selected="false">
+          DeepSeek-R1 Thinking
+        </button>
+      </div>
+
+      <!-- Tab 1: Lossless Sync -->
+      <div class="note-panel active" id="panel-lossless">
+        <div class="compare-grid">
+          <div class="compare-box bad">
+            <div class="compare-head">✕ Other Exporters on Re-Sync</div>
+            <pre>1. Creates duplicate file:
+   AI-Chats/deepseek/2026-11-19_Architecture (1).md
+
+OR if it overwrites the file:
+2. WIPES your handwritten ## My Notes
+3. WIPES your [[Project Backlinks]]
+4. WIPES your custom YAML properties &amp; #tags</pre>
+          </div>
+          <div class="compare-box good">
+            <div class="compare-head">✓ KeepThread Lossless In-Place Merge</div>
+            <pre>---
+title: "Local-First Sync Architecture"
+source: deepseek
+updated: 2026-11-20T08:30:00.000Z
+messages: 6
+tags:
+  - ai-chat
+  - deepseek
+  - project/keepthread   # &lt;-- your tag preserved!
+status: reviewed         # &lt;-- custom YAML preserved!
+project: "[[Roadmap]]"   # &lt;-- wiki-link preserved!
+---
+
+&lt;!-- keepthread:notes:start --&gt;
+## My Notes
+- Core insight linked to [[PKM Architecture]]
+&lt;!-- keepthread:notes:end --&gt;
+
+&lt;!-- keepthread:transcript:start --&gt;
+## Prompt ... (new turns merged cleanly!)</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: LaTeX -->
+      <div class="note-panel" id="panel-latex">
+        <div class="compare-grid">
+          <div class="compare-box bad">
+            <div class="compare-head">✕ Plain Copy-Paste from ChatGPT / Gemini</div>
+            <pre>The attention score is computed as:
+Attention(Q,K,V)=softmax(QKTdk)V
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+(Duplicated garbled Unicode + raw TeX breaks Obsidian!)</pre>
+          </div>
+          <div class="compare-box good">
+            <div class="compare-head">✓ KeepThread Obsidian-Ready Output</div>
+            <pre>The attention score is computed as:
+
+$$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
+
+(Extracted directly from KaTeX/MathJax annotation — renders natively in Obsidian.)</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Perplexity -->
+      <div class="note-panel" id="panel-perplexity">
+        <div class="compare-grid">
+          <div class="compare-box bad">
+            <div class="compare-head">✕ Plain Copy-Paste from Perplexity</div>
+            <pre>IndexedDB natively stores FileSystemDirectoryHandle objects mdn+2 across browser restarts chrome+1.
+(Clickable citation badges turn into unlinked text.)</pre>
+          </div>
+          <div class="compare-box good">
+            <div class="compare-head">✓ KeepThread Footnotes + Sources Section</div>
+            <pre>IndexedDB natively stores `FileSystemDirectoryHandle` objects[^1] across browser restarts[^2].
+
+---
+
+## Sources
+
+[^1]: [MDN — FileSystemDirectoryHandle](https://developer.mozilla.org/...)
+[^2]: [Chrome Developers — File System Access API](https://developer.chrome.com/...)</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: DeepSeek -->
+      <div class="note-panel" id="panel-deepseek">
+        <div class="compare-grid">
+          <div class="compare-box bad">
+            <div class="compare-head">✕ Plain Copy-Paste from DeepSeek-R1</div>
+            <pre>Thought for 14 seconds
+Wait, let me compare SQLite WASM vs IndexedDB first... Hmm, OPFS handles work differently...
+Actually, pick IndexedDB because...
+(Long reasoning chain clutters your note body.)</pre>
+          </div>
+          <div class="compare-box good">
+            <div class="compare-head">✓ KeepThread Collapsible Obsidian Callout</div>
+            <pre>## Response
+
+&gt; [!note]- Thinking Process
+&gt; Compare SQLite WASM vs IndexedDB for MV3...
+&gt; IndexedDB natively stores directory handles.
+
+Pick **IndexedDB** because it persists `FileSystemDirectoryHandle` with zero WASM overhead.</pre>
+          </div>
+        </div>
+      </div>
+
+      <h2>3. How Lossless Sync protects your Obsidian notes</h2>
+      <div class="highlight-box">
+        <h3 style="color:#6ee7b7;margin-bottom:6px;">
+          Edit your AI notes freely in Obsidian — re-syncing never destroys your work
+        </h3>
+        <p style="margin:0;font-size:14px;color:#cbd5e1;">
+          Every note synced to your Vault includes invisible HTML markers (completely hidden in
+          Obsidian Live Preview &amp; Reading view). Whenever you continue a chat and click
+          <strong>Update Obsidian Note In-Place</strong>, KeepThread reads your existing local file
+          first and performs a lossless merge:
+        </p>
+        <ul>
+          <li>
+            <strong>Custom YAML Properties &amp; Tags</strong>: Any property you add in Obsidian
+            (such as <code>status</code>, <code>project</code>, <code>aliases</code>,
+            <code>rating</code>) and any extra <code>tags</code> are merged and preserved verbatim.
+          </li>
+          <li>
+            <strong>Top Notes Slot</strong>: Write summaries, highlights, or
+            <code>[[backlinks]]</code> inside <code>&lt;!-- keepthread:notes:start --&gt;</code>
+            … <code>&lt;!-- keepthread:notes:end --&gt;</code> (or anywhere above
+            <code>## Prompt</code>). KeepThread never touches it.
+          </li>
+          <li>
+            <strong>Bottom Follow-Up Sections</strong>: Anything you append below
+            <code>&lt;!-- keepthread:transcript:end --&gt;</code> (such as tasks or reflections) is
+            also kept intact at the bottom of the updated note.
+          </li>
+        </ul>
+      </div>
+
+      <h2>4. Shortcuts &amp; Custom Path Templates</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Shortcut / Token</th>
+            <th>What it does</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>⌘⇧K</kbd> / <kbd>Ctrl+Shift+K</kbd></td>
+            <td>Open KeepThread local cross-platform offline search</td>
+            <td>Search all 5 AI platforms instantly</td>
+          </tr>
+          <tr>
+            <td><kbd>Alt+Shift+S</kbd></td>
+            <td>Quick-sync the active AI conversation tab</td>
+            <td>Saves &amp; opens Vault sync bar</td>
+          </tr>
+          <tr>
+            <td><code>{platform}</code>, <code>{year}</code>, <code>{month}</code>, <code>{day}</code></td>
+            <td>Vault subfolder path template tokens (Pro)</td>
+            <td><code>AI-Chats/{platform}/{year}-{month}</code></td>
+          </tr>
+          <tr>
+            <td><code>{date}</code>, <code>{slug}</code>, <code>{platform}</code>, <code>{id}</code></td>
+            <td>Filename template tokens (Pro)</td>
+            <td><code>{date}_{slug}.md</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>5. Frequently Asked Questions</h2>
+
+      <details open>
+        <summary>How can I verify KeepThread really has zero cloud servers?</summary>
+        <p>
+          Open Chrome/Edge DevTools → <strong>Network</strong> tab while syncing a conversation.
+          Zero bytes leave your machine during extraction, Markdown conversion, local search, or
+          Obsidian Vault file writes. The only optional outbound request is Pro license key
+          verification directly with <code>live.dodopayments.com</code>—which never includes any
+          chat text or URLs.
+        </p>
+      </details>
+
+      <details>
+        <summary>Why does Chrome ask for one click to re-grant Vault write permission after a browser restart?</summary>
+        <p>
+          That is a built-in Chromium security rule for the File System Access API: directory
+          handles are saved permanently in IndexedDB, and after a full browser restart Chrome asks
+          for one click ("Allow edit") before writing to disk again. Within the same browser
+          session, every sync is completely 1-click.
+        </p>
+      </details>
+
+      <details>
+        <summary>What happens if ChatGPT, Gemini, Perplexity, DeepSeek, or Grok updates its page layout?</summary>
+        <p>
+          Open the <strong>License &amp; Privacy</strong> tab inside KeepThread and click
+          <strong>Copy DOM Outline</strong>. It generates a sanitized HTML tag skeleton containing
+          <strong>zero</strong> chat text that you can email to
+          <a href="mailto:support@jianlanzhiwei.com" style="color:#a78bfa;">support@jianlanzhiwei.com</a>
+          so we can ship an adapter patch rapidly.
+        </p>
+      </details>
+
+      <details>
+        <summary>How does the 3-device Lifetime Pro license work?</summary>
+        <p>
+          Pay once ($19 Early Bird via Dodo Payments) and receive a license key instantly by email.
+          Activate it on up to 3 browsers/machines (for example: work Mac, personal laptop, and
+          Edge). You can deactivate any device anytime inside KeepThread to free up its slot.
+        </p>
+      </details>
+
+      <div class="cta-banner">
+        <div>
+          <h3 style="font-size:18px;margin-bottom:4px;">Ready to own your AI research forever?</h3>
+          <p style="margin:0;font-size:14px;color:var(--muted);">
+            Free forever for single-thread Markdown exports + 5 free Lossless Vault syncs. Upgrade
+            once ($19) for unlimited Vault sync &amp; offline search.
+          </p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a
+            class="btn btn-primary"
+            href="https://checkout.dodopayments.com/buy/pdt_0NsGLZDIIOYalSl7mmb95?quantity=1"
+          >
+            Get Lifetime Pro ($19)
+          </a>
+          <a class="btn btn-secondary" href="./index.html">Back to Home</a>
+        </div>
+      </div>
+
+      <footer>
+        <span>© 2026 KeepThread · Local-first software</span>
+        <div style="display:flex;gap:16px;">
+          <a href="./index.html">Home</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="./privacy.html">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const buttons = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.note-panel');
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-tab');
+          buttons.forEach((b) => {
+            b.classList.toggle('active', b === btn);
+            b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+          });
+          panels.forEach((p) => {
+            p.classList.toggle('active', p.id === 'panel-' + target);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

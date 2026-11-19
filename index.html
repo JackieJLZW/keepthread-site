@@ -90,6 +90,7 @@
         </a>
         <nav class="nav">
           <a href="#features">Features</a>
+          <a href="./guide.html">Guide</a>
           <a href="#pricing">Pricing</a>
           <a href="./privacy.html">Privacy</a>
         </nav>
@@ -106,16 +107,17 @@
       <div class="cta-row">
         <a class="btn btn-primary" href="#chrome-store">Add to Chrome (Free)</a>
         <a class="btn btn-secondary" href="#edge-store">Add to Microsoft Edge</a>
+        <a class="btn btn-secondary" href="./guide.html">30-Sec Guide &amp; Demo</a>
         <a class="btn btn-secondary" href="#pricing">Get Lifetime Pro ($19)</a>
       </div>
 
       <section id="features" class="grid">
-        <div class="card">
-          <h3>True In-Place Vault Updates</h3>
+        <div class="card" style="border-color:rgba(52,211,153,0.4);">
+          <h3>Lossless In-Place Vault Sync</h3>
           <p>
-            Links directly to your local Obsidian folder via the File System Access API. Continue a
-            conversation tomorrow and re-sync—KeepThread updates the exact same <code>.md</code>
-            file by conversation ID.
+            Continue a chat tomorrow and re-sync—KeepThread updates the exact same
+            <code>.md</code> file while <strong>preserving your handwritten notes</strong>, custom
+            YAML properties, <code>#tags</code>, and <code>[[backlinks]]</code>.
           </p>
         </div>
         <div class="card">
@@ -132,6 +134,21 @@
             No backend server stores your prompts. No <code>&lt;all_urls&gt;</code> permissions.
             Inspect Chrome DevTools Network tab anytime—your chats stay exclusively on your machine.
           </p>
+        </div>
+      </section>
+
+      <section style="margin-bottom:56px;background:linear-gradient(180deg, rgba(52,211,153,0.08), var(--surface));border:1px solid rgba(52,211,153,0.32);border-radius:18px;padding:24px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+          <div style="max-width:620px;">
+            <span style="font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#6ee7b7;">Why Obsidian Power Users Switch</span>
+            <h2 style="margin:6px 0 8px;font-size:20px;">Edit your AI notes freely—re-syncing never overwrites them.</h2>
+            <p style="margin:0;font-size:14px;color:var(--muted);">
+              Other exporters either dump duplicate <code>(1).md</code> files or wipe out your manual
+              takeaways and custom Obsidian properties. KeepThread merges custom YAML frontmatter
+              and protects your notes block automatically on every update.
+            </p>
+          </div>
+          <a class="btn btn-secondary" href="./guide.html">See Before &amp; After →</a>
         </div>
       </section>
 
@@ -169,6 +186,7 @@
       <footer>
         <span>© 2026 KeepThread · Local-first software</span>
         <div style="display:flex;gap:16px;">
+          <a href="./guide.html">Quick Guide</a>
           <a href="mailto:support@jianlanzhiwei.com">Support</a>
           <a href="./privacy.html">Privacy Policy</a>
         </div>
