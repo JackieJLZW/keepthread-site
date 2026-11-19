@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free ChatGPT &amp; DeepSeek LaTeX to Obsidian Markdown Converter — KeepThread</title>
+    <link rel="canonical" href="https://keepthread.jianlanzhiwei.com/tools/fix-ai-latex.html" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Free 100% client-side tool to convert ChatGPT, DeepSeek, and Gemini LaTeX (\\[ \\] and \\( \\)) into clean Obsidian Markdown ($...$ and $$...$$), wrap <think> tags into collapsible callouts, and strip Copy code clutter."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="KeepThread" />
+    <meta property="og:title" content="Free ChatGPT &amp; DeepSeek LaTeX to Obsidian Converter" />
+    <meta
+      property="og:description"
+      content="Convert \\[ \\] and \\( \\) to Obsidian $...$ / $$...$$, trim broken inline math spaces, and wrap <think> blocks in collapsible callouts—100% locally in your browser."
+    />
+    <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/tools/fix-ai-latex.html" />
+    <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Free ChatGPT &amp; DeepSeek LaTeX to Obsidian Converter" />
+    <meta
+      name="twitter:description"
+      content="Fix broken ChatGPT &amp; DeepSeek LaTeX math for Obsidian instantly in your browser—zero server upload."
+    />
+    <meta name="twitter:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ChatGPT & DeepSeek LaTeX to Obsidian Converter",
+        "url": "https://keepthread.jianlanzhiwei.com/tools/fix-ai-latex.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free 100% browser-local tool to convert ChatGPT, DeepSeek, and Gemini LaTeX delimiters and thinking blocks into clean Obsidian Markdown."
+      }
+    </script>
+    <style>
+      :root {
+        --bg: #0c0e14;
+        --surface: #141824;
+        --surface-2: #0f121c;
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #f3f4f8;
+        --muted: #9aa3b2;
+        --accent: #7c5cff;
+        --emerald: #34d399;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 50% -10%, rgba(124, 92, 255, 0.22), transparent 44%), var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+      }
+      .wrap { max-width: 1060px; margin: 0 auto; padding: 32px 20px 84px; }
+      header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 44px; flex-wrap: wrap; gap: 12px; }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: #fff; text-decoration: none; }
+      .nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 14px; }
+      .nav a:hover, .nav a.active { color: #fff; }
+      .pill {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(52, 211, 153, 0.45);
+        background: rgba(52, 211, 153, 0.12);
+        color: #6ee7b7;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      h1 { font-size: clamp(26px, 4.2vw, 40px); line-height: 1.16; margin: 14px 0 10px; letter-spacing: -0.02em; }
+      h2 { font-size: 22px; margin: 48px 0 12px; letter-spacing: -0.015em; }
+      .sub { font-size: 15.5px; color: var(--muted); max-width: 760px; margin: 0 0 24px; }
+      code {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 6px;
+        border-radius: 5px;
+        font-size: 13px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        color: #ddd6fe;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding: 14px 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+      }
+      .toggles { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: #cbd5e1; }
+      .toggles label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+      .toggles input { accent-color: var(--accent); width: 15px; height: 15px; }
+
+      .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+      .btn {
+        cursor: pointer;
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 9px 15px; border-radius: 10px; font-weight: 600; font-size: 13px;
+        text-decoration: none; border: 1px solid transparent; transition: all 0.15s ease;
+      }
+      .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 22px rgba(124, 92, 255, 0.28); }
+      .btn-primary:hover { background: #6b4af5; }
+      .btn-secondary { background: var(--surface-2); color: #e2e8f0; border-color: var(--border); }
+      .btn-secondary:hover { border-color: rgba(124, 92, 255, 0.55); color: #fff; }
+
+      .editor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 16px;
+      }
+      .pane {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .pane.out { border-color: rgba(52, 211, 153, 0.4); }
+      .pane-head {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 11px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--border);
+        font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+      .pane.out .pane-head { color: #6ee7b7; background: rgba(52, 211, 153, 0.07); }
+      textarea {
+        width: 100%;
+        min-height: 360px;
+        resize: vertical;
+        border: none;
+        outline: none;
+        padding: 16px;
+        background: var(--surface-2);
+        color: #e6edf7;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .stats-bar {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .stat-pill {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 6px 12px; border-radius: 10px;
+        background: var(--surface); border: 1px solid var(--border);
+        color: #cbd5e1;
+      }
+      .toast { color: #6ee7b7; font-weight: 600; opacity: 0; transition: opacity 0.2s ease; }
+      .toast.show { opacity: 1; }
+
+      .funnel-banner {
+        margin-top: 36px;
+        background: linear-gradient(135deg, rgba(124, 92, 255, 0.2), rgba(52, 211, 153, 0.08), var(--surface));
+        border: 1px solid rgba(124, 92, 255, 0.45);
+        border-radius: 18px;
+        padding: 26px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      .funnel-banner h3 { margin: 0 0 6px; font-size: 19px; color: #fff; }
+      .funnel-banner p { margin: 0; font-size: 14px; color: #cbd5e1; max-width: 600px; }
+
+      .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+      .card h3 { margin: 0 0 8px; font-size: 15px; color: #fff; }
+      .card p { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+      footer {
+        margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        font-size: 13px; color: var(--muted);
+      }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: #fff; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="../index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs>
+              <linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7C5CFF" />
+                <stop offset="100%" stop-color="#4338CA" />
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)" />
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF" />
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="../index.html">Home</a>
+          <a href="../guide.html">Guide</a>
+          <a href="../compare.html">Compare</a>
+          <a href="./fix-ai-latex.html" class="active">Free LaTeX Tool</a>
+          <a href="../privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">100% Free · Runs Locally in Your Browser · Zero Server Upload</span>
+      <h1>ChatGPT &amp; DeepSeek LaTeX to Obsidian Markdown Converter</h1>
+      <p class="sub">
+        Paste any AI response containing broken <code>\[ ... \]</code> / <code>\( ... \)</code>
+        math, stray <code>Copy code</code> lines, or <code>&lt;think&gt;</code> blocks. Instantly get
+        clean Obsidian-native <code>$...$</code>, <code>$$...$$</code>, and collapsible callouts
+        while keeping code blocks untouched.
+      </p>
+
+      <div class="toolbar">
+        <div class="toggles">
+          <label><input type="checkbox" id="opt-delimiters" checked /> Convert <code>\[ \]</code> &amp; <code>\( \)</code> → <code>$$</code> / <code>$</code></label>
+          <label><input type="checkbox" id="opt-trim-inline" checked /> Fix spaces inside <code>$ x $</code></label>
+          <label><input type="checkbox" id="opt-think" checked /> Wrap <code>&lt;think&gt;</code> in Obsidian callouts</label>
+          <label><input type="checkbox" id="opt-chrome" checked /> Strip <code>Copy code</code> UI lines</label>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-secondary" id="btn-sample" type="button">Load Sample</button>
+          <button class="btn btn-secondary" id="btn-clear" type="button">Clear</button>
+          <button class="btn btn-primary" id="btn-copy" type="button">Copy Clean Markdown</button>
+          <button class="btn btn-secondary" id="btn-download" type="button">Download .md</button>
+        </div>
+      </div>
+
+      <div class="editor-grid">
+        <div class="pane">
+          <div class="pane-head">
+            <span>Raw AI Output (Paste Here)</span>
+            <span style="font-weight:500;text-transform:none;">ChatGPT · DeepSeek · Gemini · Qwen</span>
+          </div>
+          <textarea
+            id="input-md"
+            placeholder="Paste raw text from ChatGPT, DeepSeek, or Gemini here... (or click 'Load Sample' above)"
+            spellcheck="false"
+          ></textarea>
+        </div>
+
+        <div class="pane out">
+          <div class="pane-head">
+            <span>✓ Clean Obsidian-Ready Markdown</span>
+            <span id="copy-toast" class="toast">Copied to clipboard ✓</span>
+          </div>
+          <textarea
+            id="output-md"
+            readonly
+            placeholder="Your clean Obsidian Markdown will appear here instantly..."
+            spellcheck="false"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-pill" id="stats-text">
+          Ready · 0 bytes ever leave your browser
+        </div>
+        <div style="font-size:12px;">
+          Code blocks (<code>```</code>) and inline code (<code>`...`</code>) are safely protected.
+        </div>
+      </div>
+
+      <section class="funnel-banner">
+        <div>
+          <h3>Tired of copy-pasting &amp; fixing AI chats by hand?</h3>
+          <p>
+            <strong>KeepThread</strong> extracts raw KaTeX/MathJax, Perplexity footnotes, DeepSeek-R1
+            thinking callouts, and local images straight into your Obsidian Vault in 1 click—and
+            <strong>never overwrites your handwritten notes, custom YAML, or [[backlinks]]</strong>
+            when you re-sync.
+          </p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="../index.html">Get KeepThread Extension (Free)</a>
+          <a class="btn btn-secondary" href="../guide.html">See Before &amp; After</a>
+        </div>
+      </section>
+
+      <h2>Why does ChatGPT &amp; DeepSeek LaTeX break in Obsidian?</h2>
+      <div class="faq-grid">
+        <div class="card">
+          <h3>1. Obsidian expects <code>$</code> and <code>$$</code>, not <code>\( \)</code> / <code>\[ \]</code></h3>
+          <p>
+            ChatGPT and DeepSeek frequently output standard LaTeX delimiters <code>\(x^2\)</code>
+            and <code>\[ E = mc^2 \]</code>. Obsidian's MathJax renderer only parses
+            <code>$x^2$</code> and <code>$$...$$</code>, leaving raw backslashes visible in your
+            notes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>2. Spaces inside inline <code>$ x + y $</code> break MathJax</h3>
+          <p>
+            Even when dollar signs are present, a space right after the opening <code>$</code> or
+            before the closing <code>$</code> causes Obsidian to treat it as plain currency text
+            instead of math. Our converter trims those automatically.
+          </p>
+        </div>
+        <div class="card">
+          <h3>3. Reasoning blocks &amp; UI chrome clutter your Vault</h3>
+          <p>
+            DeepSeek-R1 and local reasoning models emit <code>&lt;think&gt;...&lt;/think&gt;</code>
+            blocks, and copying from web chat UIs drags in stray <code>Copy code</code> lines.
+            Turning reasoning into <code>&gt; [!note]- Thinking Process</code> keeps notes clean and
+            foldable.
+          </p>
+        </div>
+      </div>
+
+      <footer>
+        <span>© 2026 KeepThread · 100% Local-First Software</span>
+        <div style="display:flex;gap:16px;">
+          <a href="../index.html">Home</a>
+          <a href="../guide.html">Quick Guide</a>
+          <a href="../compare.html">Compare</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="../privacy.html">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const inputEl = document.getElementById('input-md');
+      const outputEl = document.getElementById('output-md');
+      const statsEl = document.getElementById('stats-text');
+      const toastEl = document.getElementById('copy-toast');
+
+      const optDelimiters = document.getElementById('opt-delimiters');
+      const optTrimInline = document.getElementById('opt-trim-inline');
+      const optThink = document.getElementById('opt-think');
+      const optChrome = document.getElementById('opt-chrome');
+
+      const SAMPLE_TEXT = `<think>
+Let me double-check the scaled dot-product attention equation and verify the dimensionality factor d_k before writing the final explanation.
+</think>
+
+Here is the scaled dot-product attention formula from *Attention Is All You Need*:
+
+\\[
+\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{Q K^T}{\\sqrt{d_k}}\\right) V
+\\]
+
+Where \\( Q \\), \\( K \\), and \\( V \\) are matrices of dimension $ d_k $ and Euler's identity is \\(e^{i\\pi} + 1 = 0\\).
+
+Copy code
+\`\`\`python
+# Code blocks containing \\(escaped\\) or \\[brackets\\] stay untouched!
+pattern = r"\\[(.*?)\\]"
+print("Ready for Obsidian")
+\`\`\``;
+
+      function convertMarkdown(raw) {
+        if (!raw) {
+          return { text: '', displayCount: 0, inlineCount: 0, thinkCount: 0, chromeCount: 0 };
+        }
+
+        let displayCount = 0;
+        let inlineCount = 0;
+        let thinkCount = 0;
+        let chromeCount = 0;
+
+        // Protect fenced code blocks and inline code spans first
+        const placeholders = [];
+        const stash = (match) => {
+          const token = '@@KT_CODE_' + placeholders.length + '@@';
+          placeholders.push(match);
+          return token;
+        };
+
+        let text = raw.replace(/\r\n/g, '\n').replace(/\u00a0/g, ' ');
+        text = text.replace(/```[\s\S]*?```/g, stash);
+        text = text.replace(/`[^`\n]+`/g, stash);
+
+        // 1. Wrap <think>...</think> into Obsidian collapsible callouts
+        if (optThink.checked) {
+          text = text.replace(/<think>([\s\S]*?)<\/think>/gi, (_m, inner) => {
+            thinkCount++;
+            const lines = inner
+              .trim()
+              .split('\n')
+              .map((l) => (l.trim() ? '> ' + l : '>'));
+            return '> [!note]- Thinking Process\n' + lines.join('\n') + '\n';
+          });
+        }
+
+        // 2. Strip stray UI copy-paste chrome lines
+        if (optChrome.checked) {
+          text = text.replace(
+            /^[ \t]*(?:Copy code|Copy|Copied!?|Edit|Thought for \d+\s*(?:s|sec|seconds?)|Show thinking)[ \t]*\n?/gim,
+            () => {
+              chromeCount++;
+              return '';
+            },
+          );
+        }
+
+        // 3. Convert \[ ... \] display math -> $$\n...\n$$
+        if (optDelimiters.checked) {
+          text = text.replace(/\\\[([\s\S]*?)\\\]/g, (_m, expr) => {
+            displayCount++;
+            return '\n$$\n' + expr.trim() + '\n$$\n';
+          });
+
+          // Convert \( ... \) inline math -> $...$
+          text = text.replace(/\\\(([\s\S]*?)\\\)/g, (_m, expr) => {
+            inlineCount++;
+            return '$' + expr.trim() + '$';
+          });
+        }
+
+        // 4. Trim broken leading/trailing spaces inside single-line $ ... $
+        if (optTrimInline.checked) {
+          text = text.replace(/(?<!\$)\$(?!\$)([ \t]+[^$\n]+?|[^$\n]+?[ \t]+)(?<!\$)\$(?!\$)/g, (m, inner) => {
+            const trimmed = inner.trim();
+            if (!trimmed || /^\d/.test(trimmed)) return m; // Avoid touching currency like "$ 50"
+            inlineCount++;
+            return '$' + trimmed + '$';
+          });
+        }
+
+        // Restore stashed code blocks
+        text = text.replace(/@@KT_CODE_(\d+)@@/g, (_m, idx) => placeholders[Number(idx)] || '');
+
+        // Clean excessive blank lines
+        text = text.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+
+        return { text, displayCount, inlineCount, thinkCount, chromeCount };
+      }
+
+      function runConvert() {
+        const res = convertMarkdown(inputEl.value);
+        outputEl.value = res.text;
+        if (!inputEl.value.trim()) {
+          statsEl.textContent = 'Ready · 0 bytes ever leave your browser';
+          return;
+        }
+        const parts = [];
+        if (res.displayCount) parts.push(res.displayCount + ' display math');
+        if (res.inlineCount) parts.push(res.inlineCount + ' inline math');
+        if (res.thinkCount) parts.push(res.thinkCount + ' thinking callout');
+        if (res.chromeCount) parts.push(res.chromeCount + ' UI chrome stripped');
+        statsEl.textContent =
+          (parts.length ? 'Cleaned: ' + parts.join(' · ') : 'Clean Markdown verified') +
+          ' · 100% local';
+      }
+
+      [inputEl, optDelimiters, optTrimInline, optThink, optChrome].forEach((el) => {
+        el.addEventListener('input', runConvert);
+        el.addEventListener('change', runConvert);
+      });
+
+      document.getElementById('btn-sample').addEventListener('click', () => {
+        inputEl.value = SAMPLE_TEXT;
+        runConvert();
+      });
+
+      document.getElementById('btn-clear').addEventListener('click', () => {
+        inputEl.value = '';
+        runConvert();
+      });
+
+      document.getElementById('btn-copy').addEventListener('click', async () => {
+        if (!outputEl.value) return;
+        await navigator.clipboard.writeText(outputEl.value);
+        toastEl.classList.add('show');
+        setTimeout(() => toastEl.classList.remove('show'), 2000);
+      });
+
+      document.getElementById('btn-download').addEventListener('click', () => {
+        if (!outputEl.value) return;
+        const blob = new Blob([outputEl.value + '\n'], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'obsidian-clean-note.md';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      });
+
+      // Preload sample on first visit so visitors immediately see the value
+      inputEl.value = SAMPLE_TEXT;
+      runConvert();
+    </script>
+  </body>
+</html>

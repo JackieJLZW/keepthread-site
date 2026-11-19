@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quick Start Guide &amp; Lossless Sync — KeepThread</title>
+    <link rel="canonical" href="https://keepthread.jianlanzhiwei.com/guide.html" />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -13,6 +14,53 @@
       name="description"
       content="30-second setup guide for KeepThread: sync ChatGPT, Gemini, Perplexity, DeepSeek, and Grok to Obsidian with lossless note preservation, clean LaTeX, and offline search."
     />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="KeepThread" />
+    <meta property="og:title" content="KeepThread Quick Start Guide &amp; Before/After Demo" />
+    <meta
+      property="og:description"
+      content="30-second setup + live Before/After comparison of lossless sync, KaTeX math, Perplexity footnotes, and DeepSeek-R1 thinking callouts in Obsidian."
+    />
+    <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/guide.html" />
+    <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KeepThread Quick Start Guide &amp; Before/After Demo" />
+    <meta name="twitter:description" content="See how KeepThread syncs 5 AI chats into Obsidian without overwriting your notes or breaking LaTeX." />
+    <meta name="twitter:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How can I verify KeepThread really has zero cloud servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open Chrome or Edge DevTools Network tab while syncing a conversation. Zero bytes leave your machine during extraction, Markdown conversion, local search, or Obsidian Vault file writes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does KeepThread overwrite my handwritten Obsidian notes when I re-sync a conversation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. KeepThread reads your existing local Markdown file before writing and losslessly merges your custom YAML properties, extra tags, notes inside the keepthread:notes block, and trailing notes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the 3-device Lifetime Pro license work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pay once ($19 Early Bird via Dodo Payments) and activate your key on up to 3 browsers or machines. You can deactivate any device anytime inside KeepThread to free a slot."
+            }
+          }
+        ]
+      }
+    </script>
     <style>
       :root {
         --bg: #0c0e14;
@@ -221,6 +269,7 @@
           <a href="./index.html">Home</a>
           <a href="./guide.html" class="active">Guide</a>
           <a href="./compare.html">Compare</a>
+          <a href="./tools/fix-ai-latex.html">Free LaTeX Tool</a>
           <a href="./index.html#pricing">Pricing</a>
           <a href="./privacy.html">Privacy</a>
         </nav>
