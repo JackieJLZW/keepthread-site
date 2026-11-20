@@ -92,6 +92,20 @@
       .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 30px rgba(124, 92, 255, 0.3); }
       .btn-secondary { background: var(--surface); color: #fff; border: 1px solid var(--border); }
       .btn:hover { transform: translateY(-1px); }
+      .demo-dialog {
+        width: min(760px, calc(100% - 32px));
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--surface);
+        color: var(--text);
+      }
+      .demo-dialog::backdrop { background: rgba(0, 0, 0, 0.8); }
+      .demo-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+      .demo-header h2 { font-size: 18px; margin: 0; }
+      .demo-close { padding: 7px 12px; cursor: pointer; }
+      .demo-player { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+      .demo-fallback { display: inline-block; margin-top: 12px; color: var(--text); font-size: 14px; }
       .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 56px; }
       .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
       .card h3 { margin: 0 0 8px; font-size: 16px; }
@@ -151,11 +165,16 @@
         >Add to Chrome (Free)</a>
         <a
           class="btn btn-secondary"
+          id="watch-demo"
+          href="https://www.youtube.com/watch?v=fY5Gd5bh218"
+        >Watch the 21-second demo</a>
+        <a
+          class="btn btn-secondary"
           href="https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani"
           target="_blank"
           rel="noopener"
         >Add to Microsoft Edge</a>
-        <a class="btn btn-secondary" href="./guide.html">30-Sec Guide &amp; Demo</a>
+        <a class="btn btn-secondary" href="./guide.html">Quick Setup Guide</a>
         <a class="btn btn-secondary" href="#pricing">Get Lifetime Pro ($19)</a>
       </div>
 
@@ -282,5 +301,37 @@
         </div>
       </footer>
     </div>
+    <dialog class="demo-dialog" id="demo-dialog" aria-labelledby="demo-title">
+      <div class="demo-header">
+        <h2 id="demo-title">KeepThread in action</h2>
+        <form method="dialog">
+          <button class="btn btn-secondary demo-close" type="submit" autofocus>Close</button>
+        </form>
+      </div>
+      <iframe
+        class="demo-player"
+        id="demo-player"
+        data-src="https://www.youtube-nocookie.com/embed/fY5Gd5bh218?autoplay=1&amp;rel=0"
+        title="KeepThread product demo"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <a class="demo-fallback" href="https://www.youtube.com/watch?v=fY5Gd5bh218" target="_blank" rel="noopener">Watch on YouTube</a>
+    </dialog>
+    <script>
+      const demoLink = document.getElementById('watch-demo');
+      const demoDialog = document.getElementById('demo-dialog');
+      const demoPlayer = document.getElementById('demo-player');
+
+      demoLink.addEventListener('click', (event) => {
+        if (typeof demoDialog.showModal === 'function' && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+          event.preventDefault();
+          demoDialog.showModal();
+          demoPlayer.src = demoPlayer.dataset.src;
+        }
+      });
+      demoDialog.addEventListener('close', () => demoPlayer.removeAttribute('src'));
+    </script>
   </body>
 </html>
