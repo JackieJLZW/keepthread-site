@@ -189,11 +189,20 @@
             <tr>
               <td>
                 <span class="feat-name">Lossless Re-Sync (Notes &amp; YAML Preserved)</span>
-                <span class="feat-sub">Never overwrites your <code>## My Notes</code>, custom YAML properties, or <code>[[backlinks]]</code></span>
+                <span class="feat-sub">Never overwrites your <code>## My Notes</code>, custom YAML, or <code>[[backlinks]]</code>—even with <code>{date}</code> filenames</span>
               </td>
-              <td class="kt-col"><span class="yes">✓ Yes (Automatic Merge)</span></td>
+              <td class="kt-col"><span class="yes">✓ Yes (Idempotent In-Place Merge)</span></td>
               <td><span class="no">✕ Overwrites or duplicates</span></td>
-              <td><span class="no">✕ Creates (1).md or overwrites</span></td>
+              <td><span class="no">✕ Duplicates old turns or creates (1).md</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Long-Thread Anti-Truncation &amp; Full Capture</span>
+                <span class="feat-sub">Auto-scroll capture for virtualized DOMs + guard preventing shorter overwrites</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Built-in Full Capture + Guard</span></td>
+              <td><span class="no">✕ Only visible DOM</span></td>
+              <td><span class="no">✕ Silently drops off-screen turns</span></td>
             </tr>
             <tr>
               <td>
@@ -225,11 +234,20 @@
             <tr>
               <td>
                 <span class="feat-name">Local Image Saving (Anti-403)</span>
-                <span class="feat-sub">Saves images into <code>assets/keepthread/</code> as <code>![[...]]</code></span>
+                <span class="feat-sub">Saves remote &amp; session-gated AI images into <code>assets/keepthread/</code> as <code>![[...]]</code></span>
               </td>
-              <td class="kt-col"><span class="yes">✓ Built-in local assets</span></td>
+              <td class="kt-col"><span class="yes">✓ Direct + Page-Session Fallback</span></td>
               <td><span class="no">✕ Remote URLs expire (403)</span></td>
               <td><span class="no">✕ Remote URLs expire</span></td>
+            </tr>
+            <tr>
+              <td>
+                <span class="feat-name">Custom Speaker Headings &amp; Draggable Pill</span>
+                <span class="feat-sub">Customize <code>## You</code> / <code>## {platform}</code> headings + dock pill to any corner</span>
+              </td>
+              <td class="kt-col"><span class="yes">✓ Free Custom Headings &amp; Corner Dock</span></td>
+              <td><span class="partial">△ Complex template syntax</span></td>
+              <td><span class="no">✕ Hardcoded labels &amp; fixed button</span></td>
             </tr>
             <tr>
               <td>
@@ -261,20 +279,20 @@
             <tr>
               <td>
                 <span class="feat-name">Privacy &amp; Host Permissions</span>
-                <span class="feat-sub">Zero backend server, no <code>&lt;all_urls&gt;</code> access</span>
+                <span class="feat-sub">Zero backend server, zero account/email login, zero <code>&lt;all_urls&gt;</code> access</span>
               </td>
               <td class="kt-col"><span class="yes">✓ Scoped to 7 AI platforms only</span></td>
               <td><span class="partial">△ Requests broad page access</span></td>
-              <td><span class="no">✕ Many request <code>&lt;all_urls&gt;</code> + cloud</span></td>
+              <td><span class="no">✕ Many request <code>&lt;all_urls&gt;</code> / login</span></td>
             </tr>
             <tr>
               <td>
                 <span class="feat-name">Pricing Model</span>
                 <span class="feat-sub">Transparent, anti-subscription</span>
               </td>
-              <td class="kt-col"><span class="yes">✓ Free Forever + $19 One-Time Pro</span></td>
+              <td class="kt-col"><span class="yes">✓ Free Forever .md + $19 One-Time Pro</span></td>
               <td><span class="yes">✓ Free</span></td>
-              <td><span class="no">✕ $5–$10/mo recurring subscriptions</span></td>
+              <td><span class="no">✕ $50/yr recurring subscriptions</span></td>
             </tr>
           </tbody>
         </table>

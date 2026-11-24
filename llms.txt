@@ -1,0 +1,37 @@
+# KeepThread
+
+> KeepThread is a 100% local Chrome & Microsoft Edge extension that exports and incrementally syncs conversations from 7 AI platforms (ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi, and GLM) directly into your local Obsidian Vault and clean Markdown—without cloud servers, duplicate files, or overwriting handwritten notes.
+
+Publisher: Hangzhou Jianlan Zhiwei Technology Co., Ltd.
+Website: https://keepthread.jianlanzhiwei.com/
+Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
+Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
+Support: support@jianlanzhiwei.com
+Current Release: v1.3.0 (November 2026)
+
+## Key Facts
+- **7-in-1 Live-Verified AI Platform Support:**
+  - **ChatGPT** (`chatgpt.com`, `chat.openai.com` — code cards, KaTeX, GFM tables, citations & attachments)
+  - **Gemini** (`gemini.google.com` — Thinking & Deep Research panels, strips hidden screen-reader labels, citations & attachments)
+  - **Perplexity** (`perplexity.ai` — `/session/` and `/search/`, converts inline citation pills into Markdown footnotes and `## Sources`)
+  - **DeepSeek** (`chat.deepseek.com` — converts DeepSeek-R1 reasoning blocks into Obsidian collapsible callouts `> [!note]- Thinking Process`, preserves search citations & attachments)
+  - **Grok** (`grok.com` — user/assistant turns, code cards, citations & KaTeX)
+  - **Kimi** (`kimi.com`, `www.kimi.com`, `kimi.moonshot.cn` — merges split sticky-header tables, converts `.rag-tag` citations to footnotes, separates `.process-flow` reasoning)
+  - **GLM** (`chatglm.cn`, `bigmodel.cn`, `chat.z.ai`, `zchat.z.ai` — strips code line-number gutters, preserves `<eq>`/`<eqn>` KaTeX, separates `.chat-web-think` reasoning & attachments)
+- **Lossless In-Place Obsidian Vault Sync & Vault Isolation:** Connects directly to your local Obsidian Vault folder via the browser File System Access API (`showDirectoryPicker`) and updates the exact same `.md` file in-place by `conversation_id`—eliminating duplicate `(1).md` files while preserving handwritten user notes (`<!-- keepthread:notes:start/end -->` and trailing notes), custom YAML properties (`status`, `project`, `aliases`), `#tags`, and `[[backlinks]]`.
+- **Multi-Select Batch Sync, Full Obsidian ZIP & Local JSON Backup (v1.3.0):** Select multiple conversations from the local archive for one-click batch sync into your Vault, export a complete Obsidian-ready ZIP archive (notes + localized assets + `.base` dashboard), and back up or restore your entire local KeepThread IndexedDB archive via portable JSON files.
+- **Anti-Truncation Full Capture & Clean Formatting (v1.3.0):** Built-in Auto-Scroll Full Capture recovers off-screen turns on virtualized long chats (ChatGPT, Perplexity, Grok, Gemini) and prevents accidental shorter overwrites. Preserves KaTeX/MathJax LaTeX math (`$...$` / `$$...$$`) and Mermaid diagrams cleanly without duplicated visual text, preserves multi-AI citations and attachments, strips UI chrome (`Copy code`, `Edit`), converts tables into clean GFM tables, and supports custom speaker headings (`## You`, `## {platform}`, etc.).
+- **Cherry-Pick Turns & Session-Aware Local Image Archiving:** Sync `All`, `Answers Only`, `Last 2`, or individual checked turns, and automatically save both public and session-authenticated AI images locally into `<vault>/assets/keepthread/` as `![[assets/keepthread/...]]` so CDN links never expire.
+- **Obsidian Bases (`.base`) Dashboard & Offline Cross-AI Search:** Auto-maintains `AI-Chats/AI-Chats.base` (Obsidian 1.9+ native database view) and `AI-Chats/_AI-Chats-Index.md` MOC, provides `Cmd+Shift+K` / `Ctrl+Shift+K` 100% local IndexedDB search across all 7 platforms, includes a draggable in-page status pill (`Synced ✓` / `+N new · Update`), and offers 1-click **Copy Context Prompt** to carry research between AI tools.
+- **Verifiable Zero-Cloud Privacy:** No backend server stores your prompts and no `<all_urls>` permission is requested. All DOM parsing, IndexedDB search, JSON backups, and Vault file writes happen strictly on the user's machine.
+
+## Pricing (Anti-Subscription, One-Time Pro)
+- **Free Forever ($0, no account required):** Unlimited single-thread clean Markdown downloads & clipboard copies across all 7 AI platforms, custom speaker headings, 5 free direct in-place Obsidian Vault syncs, and a 20-thread local offline search archive.
+- **Lifetime Pro ($19 one-time Early Bird via Dodo Payments):** Unlimited in-place Obsidian Vault syncs, unlimited local offline cross-platform search (`Cmd+Shift+K`), multi-select Batch Sync to Vault & full Obsidian ZIP export, local JSON archive backup/restore, custom folder path, filename & YAML frontmatter templates, and up to 3 device activations that never expire.
+
+## Pages, Free Tools & Documentation
+- [KeepThread Home](https://keepthread.jianlanzhiwei.com/): Overview, 21-second product demo, feature summary, store links, and pricing.
+- [Quick Start Guide & Lossless Sync](https://keepthread.jianlanzhiwei.com/guide.html): 30-second Vault setup walkthrough, lossless notes preservation, and custom template guide.
+- [KeepThread vs Obsidian Web Clipper & ChatGPT Exporters (2026 Comparison)](https://keepthread.jianlanzhiwei.com/compare.html): Feature-by-feature comparison covering lossless re-sync, LaTeX fidelity, Perplexity/Kimi citations, local image archiving, and Obsidian Bases.
+- [Free ChatGPT & DeepSeek LaTeX to Obsidian Markdown Converter](https://keepthread.jianlanzhiwei.com/tools/fix-ai-latex.html): Free browser-based tool that converts `\[...\]` / `\(...\)` AI math output into clean Obsidian `$` / `$$` Markdown locally.
+- [Privacy Policy](https://keepthread.jianlanzhiwei.com/privacy.html): Zero-cloud architecture, minimal browser permissions, and Dodo Payments license key verification details.
