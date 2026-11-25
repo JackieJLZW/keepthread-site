@@ -14,24 +14,24 @@
     />
     <meta
       name="description"
-      content="Export and losslessly sync ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi, and GLM threads straight to your local Obsidian Vault. Preserves your notes & custom YAML, zero cloud servers, one-time $19 Pro."
+      content="Export and losslessly sync ChatGPT, Claude, Gemini, AI Studio, Perplexity, DeepSeek, Grok, Kimi, and GLM threads straight to your local Obsidian Vault. Preserves your notes & custom YAML, zero cloud servers, one-time $19 Pro."
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="KeepThread" />
-    <meta property="og:title" content="KeepThread — Lossless AI Chat Sync Straight Into Obsidian" />
+    <meta property="og:title" content="KeepThread — Lossless 8-in-1 AI Chat Sync Straight Into Obsidian" />
     <meta
       property="og:description"
-      content="Sync ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi & GLM into your local Obsidian Vault without overwriting your handwritten notes, custom YAML, or [[backlinks]]. 100% local, zero cloud."
+      content="Sync ChatGPT, Claude, Gemini & AI Studio, Perplexity, DeepSeek, Grok, Kimi & GLM into your local Obsidian Vault without overwriting your handwritten notes, custom YAML, or [[backlinks]]. 100% local, zero cloud."
     />
     <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/" />
     <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="KeepThread — Lossless AI Chat Sync Straight Into Obsidian" />
+    <meta name="twitter:title" content="KeepThread — Lossless 8-in-1 AI Chat Sync Straight Into Obsidian" />
     <meta
       name="twitter:description"
-      content="Edit your AI notes freely in Obsidian—re-syncing never overwrites your notes, tags, or [[backlinks]]. Zero cloud servers."
+      content="Edit your AI notes freely in Obsidian—re-syncing never overwrites your notes, tags, or [[backlinks]]. 8 AI platforms, zero cloud servers."
     />
     <meta name="twitter:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
     <script type="application/ld+json">
@@ -40,16 +40,16 @@
         "@type": "SoftwareApplication",
         "name": "KeepThread",
         "url": "https://keepthread.jianlanzhiwei.com/",
-        "softwareVersion": "1.3.1",
+        "softwareVersion": "1.4.0",
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Chrome, Microsoft Edge",
-        "description": "100% local Chrome & Edge extension to export and losslessly sync ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi & GLM chats straight into Obsidian & Markdown.",
+        "description": "100% local Chrome & Edge extension to export and losslessly sync ChatGPT, Claude, Gemini & AI Studio, Perplexity, DeepSeek, Grok, Kimi & GLM chats straight into Obsidian & Markdown.",
         "featureList": [
-          "7-in-1 local sync for ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi, and GLM with zero cloud servers",
+          "8-in-1 local sync for ChatGPT, Claude, Google Gemini (including Deep Research & AI Studio), Perplexity, DeepSeek, Grok, Kimi, and GLM with zero cloud servers",
           "Lossless in-place Obsidian Vault sync preserving handwritten notes, custom YAML frontmatter, tags, and [[backlinks]]",
-          "Multi-select batch sync to Obsidian Vault, full Obsidian ZIP export, and portable local JSON archive backup/restore",
-          "Anti-truncation Auto-Scroll full capture, Mermaid & LaTeX cleanup, multi-AI citations and attachment preservation",
-          "Session-aware local image archiving to assets/keepthread/ and Obsidian Bases (.base) dashboard",
+          "Cherry-pick turns with 1-click Only single-turn mode, per-export Thinking On/Off toggle, and Needs Sync archive filtering",
+          "Anti-truncation Auto-Scroll full capture (up to 1,000 steps) with shifted-window and SPA-switch protection, Mermaid & LaTeX cleanup, turn-scoped citations and attachment preservation",
+          "Multi-select batch sync to Obsidian Vault, full Obsidian ZIP export, portable local JSON archive backup/restore, session-aware local image archiving, and Obsidian Bases (.base) dashboard",
           "100% offline cross-AI search (Cmd+Shift+K / Ctrl+Shift+K) and 1-click Copy Context Prompt"
         ],
         "sameAs": [
@@ -168,12 +168,13 @@
         </nav>
       </header>
 
-      <span class="pill">100% Local · 7-in-1 AI Sync · Zero Cloud Server · No Subscription</span>
-      <h1>Sync ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi &amp; GLM straight into Obsidian.</h1>
+      <span class="pill">100% Local · 8-in-1 AI Sync (v1.4.0) · Zero Cloud Server · No Subscription</span>
+      <h1>Sync ChatGPT, Claude, Gemini, Perplexity, DeepSeek, Grok, Kimi &amp; GLM straight into Obsidian.</h1>
       <p class="sub">
         Stop losing research across AI tabs or fighting broken copy-paste. KeepThread writes clean
-        Markdown—with intact LaTeX, code blocks, Perplexity &amp; Kimi footnotes, thinking callouts,
-        and YAML frontmatter—directly into your local Obsidian Vault with zero duplicate files.
+        Markdown—with intact LaTeX, Mermaid diagrams, code blocks, turn-scoped footnotes, Extended
+        Thinking &amp; DeepSeek callouts, Claude Artifacts, and YAML frontmatter—directly into your
+        local Obsidian Vault with zero duplicate files.
       </p>
 
       <div class="cta-row">
@@ -208,42 +209,43 @@
           </p>
         </div>
         <div class="card">
-          <h3>Cherry-Pick Turns &amp; Local Images</h3>
+          <h3>Cherry-Pick Only, Thinking Toggle &amp; Local Images</h3>
           <p>
-            Pick only the golden Q&amp;A turns instead of dumping 40 turns of noise. Automatically
-            saves images locally to <code>assets/keepthread/</code> as <code>![[...]]</code> so AI
-            CDN links never expire with 403 errors.
+            Pick exact turns (or click <strong>Only</strong> for one golden reply), toggle
+            <strong>Thinking On/Off</strong> per export without changing global settings, and save
+            images locally to <code>assets/keepthread/</code> as <code>![[...]]</code> so links never 403-expire.
           </p>
         </div>
         <div class="card">
-          <h3>Obsidian Bases &amp; Cross-AI Memory</h3>
+          <h3>Obsidian Bases, Needs Sync Filter &amp; Cross-AI Memory</h3>
           <p>
-            Auto-generates an Obsidian <code>AI-Chats.base</code> database view, searchable offline
-            via <code>Cmd+Shift+K</code>, plus 1-click <strong>Copy Context Prompt</strong> to carry
-            research from DeepSeek/Perplexity into ChatGPT or Gemini.
+            Auto-generates an Obsidian <code>AI-Chats.base</code> database view, filter unsynced or
+            updated threads via <strong>Needs Sync</strong>, search all 8 platforms offline via
+            <code>Cmd+Shift+K</code>, and click <strong>Copy Context Prompt</strong> to switch AIs.
           </p>
         </div>
         <div class="card">
           <h3>Obsidian-Grade Formatting</h3>
           <p>
-            Preserves KaTeX/MathJax LaTeX without visual text duplication, strips "Copy code"
-            chrome &amp; line-number gutters, merges split sticky tables, turns Perplexity &amp; Kimi
-            sources into footnotes, and wraps DeepSeek/GLM reasoning in collapsible callouts.
+            Preserves KaTeX/MathJax LaTeX &amp; Mermaid source while protecting code blocks, keeps
+            Claude Artifact titles, turns Perplexity/Gemini/Grok/Kimi/DeepSeek sources into
+            turn-scoped footnotes, and wraps reasoning in collapsible callouts.
           </p>
         </div>
         <div class="card">
-          <h3>Live In-Page Sync Pill</h3>
+          <h3>Live In-Page Pill &amp; Anti-Truncation Capture</h3>
           <p>
-            A subtle, dismissable pill across all 7 supported AI sites (ChatGPT, Gemini, Perplexity,
-            DeepSeek, Grok, Kimi &amp; GLM) shows <code>Synced ✓</code> or
-            <code>+2 new · Update</code> automatically—zero tab hunting.
+            A draggable corner pill across all 8 AI platforms (including Claude &amp; Google AI
+            Studio) shows <code>Synced ✓</code> or <code>+2 new · Update</code> live, with
+            Auto-Scroll Full Capture (up to 1,000 steps) and shifted-window overwrite protection.
           </p>
         </div>
         <div class="card">
           <h3>Verifiable Zero-Cloud Privacy</h3>
           <p>
             No backend server stores your prompts. No <code>&lt;all_urls&gt;</code> permissions.
-            Inspect Chrome DevTools Network tab anytime—your chats stay exclusively on your machine.
+            Outbound network traffic occurs only when downloading local images from their original
+            hosts or verifying an optional Pro license key.
           </p>
         </div>
       </section>
@@ -275,9 +277,9 @@
             <p class="sub" style="font-size:13px;margin-bottom:16px;">No account required.</p>
             <ul>
               <li>Unlimited single-thread clean Markdown downloads &amp; clipboard copies</li>
-              <li>7-in-1 support: ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi &amp; GLM (ChatGLM / BigModel / Z.ai)</li>
+              <li>8-in-1 support: ChatGPT, Claude, Gemini &amp; AI Studio, Perplexity, DeepSeek, Grok, Kimi &amp; GLM</li>
               <li>5 free Obsidian Vault direct in-place syncs</li>
-              <li>20-thread local offline search archive</li>
+              <li>20-thread local offline search archive &amp; portable JSON backup</li>
             </ul>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
               <a
@@ -317,9 +319,10 @@
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:10px;">
           <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-chatgpt-to-obsidian.html">Export ChatGPT to Obsidian</a>
+          <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-claude-to-obsidian.html">Export Claude to Obsidian</a>
           <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-deepseek-to-obsidian.html">Export DeepSeek-R1 to Obsidian</a>
           <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-perplexity-to-obsidian.html">Export Perplexity to Obsidian</a>
-          <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-gemini-to-obsidian.html">Export Gemini to Obsidian</a>
+          <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-gemini-to-obsidian.html">Export Gemini &amp; AI Studio to Obsidian</a>
           <a class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" href="./export-grok-to-obsidian.html">Export Grok to Obsidian</a>
         </div>
       </section>

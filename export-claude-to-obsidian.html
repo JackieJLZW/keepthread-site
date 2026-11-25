@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Export Claude to Obsidian With Extended Thinking, Artifacts &amp; Clean Markdown — KeepThread</title>
+    <link rel="canonical" href="https://keepthread.jianlanzhiwei.com/export-claude-to-obsidian.html" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Export and losslessly sync Claude (claude.ai) chats straight into your local Obsidian Vault as clean Markdown. Preserves Extended Thinking as collapsible Obsidian callouts, Artifact card titles, attachments, web search citations, and KaTeX math—100% locally."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="KeepThread" />
+    <meta property="og:title" content="Export Claude Chats to Obsidian With Extended Thinking &amp; Artifacts Intact" />
+    <meta property="og:description" content="100% local Chrome & Edge sync for claude.ai conversations, Extended Thinking callouts, Artifact titles, attachments, and web search citations." />
+    <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/export-claude-to-obsidian.html" />
+    <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "KeepThread",
+            "url": "https://keepthread.jianlanzhiwei.com/",
+            "softwareVersion": "1.4.0",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Chrome, Microsoft Edge",
+            "offers": [
+              { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free Forever" },
+              { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Lifetime Pro (One-Time)" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Can I export Claude Extended Thinking without cluttering my Obsidian note?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. KeepThread isolates Claude Extended Thinking blocks into collapsible > [!note]- Thinking Process Obsidian callouts by default, and includes a 1-click Thinking On/Off toggle in the popup when you want to exclude reasoning traces from a specific note."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does KeepThread preserve Claude Artifact card titles, attachments, and images?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. KeepThread preserves button-wrapped Artifact titles (including multi-span filenames like Dashboard.tsx), records uploaded PDF and file attachment names once without duplicating thumbnails, and archives conversation images locally into assets/keepthread/."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does KeepThread send my Claude conversations to any external server?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Never. KeepThread parses claude.ai locally in Chrome or Edge, writes directly to your local Obsidian Vault via the File System Access API, and requests zero <all_urls> permissions."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root { --bg:#0c0e14; --surface:#141824; --surface-2:#0f121c; --border:rgba(255,255,255,0.1); --text:#f3f4f8; --muted:#9aa3b2; --accent:#7c5cff; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif; background:radial-gradient(circle at 50% -10%, rgba(217,119,87,0.22), transparent 45%), var(--bg); color:var(--text); line-height:1.65; }
+      .wrap { max-width:920px; margin:0 auto; padding:32px 20px 80px; }
+      header { display:flex; align-items:center; justify-content:space-between; margin-bottom:52px; flex-wrap:wrap; gap:12px; }
+      .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; color:#fff; text-decoration:none; }
+      .nav a { color:var(--muted); text-decoration:none; margin-left:18px; font-size:14px; }
+      .nav a:hover { color:#fff; }
+      .pill { display:inline-block; padding:5px 12px; border-radius:999px; border:1px solid rgba(217,119,87,0.45); background:rgba(217,119,87,0.16); color:#fdba74; font-size:12px; font-weight:600; }
+      h1 { font-size:clamp(30px,4.5vw,46px); line-height:1.14; margin:16px 0 14px; letter-spacing:-0.02em; }
+      h2 { font-size:22px; margin:44px 0 14px; }
+      .sub { font-size:17px; color:var(--muted); max-width:720px; margin:0 0 26px; }
+      .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:44px; }
+      .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:12px; font-weight:600; font-size:14px; text-decoration:none; transition:transform .15s ease; }
+      .btn-primary { background:var(--accent); color:#fff; box-shadow:0 10px 28px rgba(124,92,255,0.3); }
+      .btn-secondary { background:var(--surface); color:#fff; border:1px solid var(--border); }
+      .btn:hover { transform:translateY(-1px); }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:20px 0 36px; }
+      .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; }
+      .card h3 { margin:0 0 8px; font-size:16px; }
+      .card p { margin:0; font-size:14px; color:var(--muted); }
+      pre { background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:18px; overflow-x:auto; font-size:13px; line-height:1.55; color:#d7deec; }
+      code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+      .faq { display:grid; gap:12px; margin-top:16px; }
+      details { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
+      summary { font-weight:600; cursor:pointer; font-size:15px; }
+      details p { margin:10px 0 0; font-size:14px; color:var(--muted); }
+      .cross { margin-top:48px; padding:20px; background:var(--surface); border:1px solid var(--border); border-radius:16px; }
+      .cross-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+      .cross-links a { font-size:13px; color:#c4b5fd; text-decoration:none; padding:6px 12px; border-radius:999px; border:1px solid rgba(124,92,255,0.35); background:rgba(124,92,255,0.1); }
+      footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); }
+      footer a { color:var(--muted); text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs><linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7C5CFF"/><stop offset="100%" stop-color="#4338CA"/></linearGradient></defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)"/>
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF"/>
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./tools/fix-ai-latex.html">Free LaTeX Tool</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">Claude (claude.ai) → Obsidian · Extended Thinking &amp; Artifacts</span>
+      <h1>Export Claude to Obsidian With Extended Thinking &amp; Artifacts Intact.</h1>
+      <p class="sub">
+        Copy-pasting from Claude flattens Extended Thinking blocks, strips Artifact filenames, and
+        breaks math and tables. KeepThread writes clean <code>claude.ai</code> conversations straight
+        into your local Obsidian Vault—folding reasoning into native Obsidian callouts, cherry-picking
+        exact turns, and keeping your handwritten notes safe on every re-sync.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf" target="_blank" rel="noopener">Add to Chrome (Free)</a>
+        <a class="btn btn-secondary" href="https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani" target="_blank" rel="noopener">Add to Microsoft Edge</a>
+        <a class="btn btn-secondary" href="./guide.html">30-Second Vault Setup</a>
+      </div>
+
+      <h2>Built for Real Claude → Obsidian Knowledge Workflows</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Collapsible Extended Thinking + 1-Click Toggle</h3>
+          <p>Separates Claude's Extended Thinking blocks cleanly into collapsed <code>&gt; [!note]- Thinking Process</code> Obsidian callouts, or strips reasoning cleanly for a single export with the popup's temporary <strong>Thinking: On/Off</strong> toggle.</p>
+        </div>
+        <div class="card">
+          <h3>Artifact Titles, Code Cards &amp; Attachments</h3>
+          <p>Preserves clickable Artifact card titles (even multi-span filenames like <code>Dashboard.tsx</code>), code language tags, uploaded PDF/file names without duplicating inline thumbnails, and clickable raster images.</p>
+        </div>
+        <div class="card">
+          <h3>Turn-Scoped Web Search Citations</h3>
+          <p>Converts Claude web-search links into clean <code>[^1]</code> footnotes and a <code>## Sources</code> list—strictly scoped to your cherry-picked turns so excluded turns never leak source URLs.</p>
+        </div>
+        <div class="card">
+          <h3>Lossless In-Place Re-Sync &amp; Only-This Pick</h3>
+          <p>Continue a Claude thread tomorrow and click <strong>Update</strong>—your dedicated notes block, custom YAML properties, and <code>[[backlinks]]</code> remain untouched, or click <strong>Only</strong> to save a single synthesis turn.</p>
+        </div>
+      </div>
+
+      <h2>Example Claude Output in Obsidian</h2>
+      <pre><code>---
+title: "Event Sourcing vs CQRS Trade-offs"
+source: claude
+conversation_id: "claude:94f8b2..."
+url: "https://claude.ai/chat/94f8b2..."
+tags:
+  - ai-chat
+  - claude
+  - architecture
+---
+
+## You
+&gt; 📎 **Attachments:** `system-spec.pdf`
+
+Compare event sourcing vs CQRS for our billing ledger and draft `Dashboard.tsx`.
+
+## Claude
+&gt; [!note]- Thinking Process
+&gt; Weighing append-only ledger auditability against read-model projection lag...
+
+Use an append-only ledger table first and introduce read projections only when query latency requires it[^1].
+
+**Artifact:** `Dashboard.tsx`
+
+---
+
+## Sources
+[^1]: [Martin Fowler — Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html)</code></pre>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <details open>
+          <summary>Can I export Claude Extended Thinking without cluttering my Obsidian note?</summary>
+          <p>Yes. KeepThread isolates Claude Extended Thinking blocks into collapsible <code>&gt; [!note]- Thinking Process</code> Obsidian callouts by default, and includes a 1-click <strong>Thinking On/Off</strong> toggle in the popup when you want to exclude reasoning traces from a specific note.</p>
+        </details>
+        <details>
+          <summary>Does KeepThread preserve Claude Artifact card titles, attachments, and images?</summary>
+          <p>Yes. KeepThread preserves button-wrapped Artifact titles (including multi-span filenames like <code>Dashboard.tsx</code>), records uploaded PDF and file attachment names once without duplicating thumbnails, and archives conversation images locally into <code>assets/keepthread/</code>.</p>
+        </details>
+        <details>
+          <summary>Does KeepThread send my Claude conversations to any external server?</summary>
+          <p>Never. KeepThread parses <code>claude.ai</code> locally in Chrome or Edge, writes directly to your local Obsidian Vault via the File System Access API, and requests zero <code>&lt;all_urls&gt;</code> permissions.</p>
+        </details>
+      </div>
+
+      <section class="cross">
+        <strong>Export Guides for Other AI Platforms</strong>
+        <div class="cross-links">
+          <a href="./export-chatgpt-to-obsidian.html">ChatGPT → Obsidian</a>
+          <a href="./export-deepseek-to-obsidian.html">DeepSeek → Obsidian</a>
+          <a href="./export-perplexity-to-obsidian.html">Perplexity → Obsidian</a>
+          <a href="./export-gemini-to-obsidian.html">Gemini &amp; AI Studio → Obsidian</a>
+          <a href="./export-grok-to-obsidian.html">Grok → Obsidian</a>
+          <a href="./compare.html">vs. Obsidian Web Clipper</a>
+          <a href="./tools/fix-ai-latex.html">Free AI LaTeX Fixer</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 KeepThread · 100% Local-First Obsidian Sync</span>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Quick Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="./privacy.html">Privacy</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

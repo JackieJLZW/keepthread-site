@@ -170,9 +170,9 @@
       <h1>KeepThread vs. Obsidian Web Clipper &amp; Generic AI Exporters</h1>
       <p class="sub">
         Obsidian Web Clipper is fantastic for clipping articles and blogs. But AI chat apps
-        (ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi, GLM) are stateful, multi-turn DOMs with
-        KaTeX math, expiring image CDN URLs, thinking blocks, and evolving threads—that's where
-        KeepThread is purpose-built.
+        (ChatGPT, Claude, Gemini &amp; AI Studio, Perplexity, DeepSeek, Grok, Kimi, GLM) are
+        stateful, multi-turn DOMs with KaTeX math, expiring image CDN URLs, thinking blocks,
+        Artifacts, and evolving threads—that's where KeepThread is purpose-built.
       </p>
 
       <div class="table-wrap">
@@ -198,7 +198,7 @@
             <tr>
               <td>
                 <span class="feat-name">Long-Thread Anti-Truncation &amp; Full Capture</span>
-                <span class="feat-sub">Auto-scroll capture for virtualized DOMs + guard preventing shorter overwrites</span>
+                <span class="feat-sub">Auto-scroll capture (up to 1,000 steps) + shifted-window &amp; SPA-switch overwrite guard</span>
               </td>
               <td class="kt-col"><span class="yes">✓ Built-in Full Capture + Guard</span></td>
               <td><span class="no">✕ Only visible DOM</span></td>
@@ -206,8 +206,8 @@
             </tr>
             <tr>
               <td>
-                <span class="feat-name">7-in-1 Live AI Adapters</span>
-                <span class="feat-sub">ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi &amp; GLM</span>
+                <span class="feat-name">8-in-1 Live AI Adapters</span>
+                <span class="feat-sub">ChatGPT, Claude, Gemini &amp; AI Studio, Perplexity, DeepSeek, Grok, Kimi &amp; GLM</span>
               </td>
               <td class="kt-col"><span class="yes">✓ Dedicated DOM adapters</span></td>
               <td><span class="partial">△ Generic article extractor</span></td>
@@ -215,8 +215,8 @@
             </tr>
             <tr>
               <td>
-                <span class="feat-name">KaTeX / MathJax LaTeX Fidelity</span>
-                <span class="feat-sub">Extracts raw TeX cleanly without duplicated visual gibberish</span>
+                <span class="feat-name">KaTeX / MathJax LaTeX &amp; Mermaid Fidelity</span>
+                <span class="feat-sub">Extracts raw TeX &amp; Mermaid source while keeping fenced/inline code blocks immune</span>
               </td>
               <td class="kt-col"><span class="yes">✓ Clean <code>$...$</code> / <code>$$...$$</code></span></td>
               <td><span class="no">✕ Often duplicates or breaks</span></td>
@@ -224,10 +224,10 @@
             </tr>
             <tr>
               <td>
-                <span class="feat-name">Perplexity Footnotes &amp; DeepSeek Thinking</span>
-                <span class="feat-sub"><code>[^1]</code> footnotes + <code>&gt; [!note]- Thinking Process</code></span>
+                <span class="feat-name">Multi-AI Citations &amp; Collapsible Thinking</span>
+                <span class="feat-sub">Turn-scoped <code>[^1]</code> footnotes + <code>&gt; [!note]- Thinking Process</code> + per-export toggle</span>
               </td>
-              <td class="kt-col"><span class="yes">✓ Native Obsidian syntax</span></td>
+              <td class="kt-col"><span class="yes">✓ Native Obsidian syntax + Toggle</span></td>
               <td><span class="no">✕ Plain text / lost links</span></td>
               <td><span class="no">✕ Not supported</span></td>
             </tr>
@@ -251,10 +251,10 @@
             </tr>
             <tr>
               <td>
-                <span class="feat-name">Cherry-Pick Turns</span>
-                <span class="feat-sub">Sync only golden answers instead of 40 turns of debugging noise</span>
+                <span class="feat-name">Cherry-Pick Turns &amp; Only-This Mode</span>
+                <span class="feat-sub">Sync exact turns (or click <code>Only</code> for a single answer) with turn-scoped citations</span>
               </td>
-              <td class="kt-col"><span class="yes">✓ Turn-level checkboxes</span></td>
+              <td class="kt-col"><span class="yes">✓ Checkboxes + 1-Click Only</span></td>
               <td><span class="no">✕ Full page or manual highlight</span></td>
               <td><span class="no">✕ Full thread dump only</span></td>
             </tr>
@@ -269,10 +269,10 @@
             </tr>
             <tr>
               <td>
-                <span class="feat-name">Cross-AI Offline Search &amp; Context Prompt</span>
-                <span class="feat-sub"><code>Cmd+Shift+K</code> search + 1-click Copy Context to another AI</span>
+                <span class="feat-name">Cross-AI Offline Search, Needs Sync &amp; Context Prompt</span>
+                <span class="feat-sub"><code>Cmd+Shift+K</code> search, <code>Needs Sync</code> filter + 1-click Copy Context to another AI</span>
               </td>
-              <td class="kt-col"><span class="yes">✓ IndexedDB + Context Prompt</span></td>
+              <td class="kt-col"><span class="yes">✓ IndexedDB + Needs Sync + Context</span></td>
               <td><span class="no">✕ No AI thread index</span></td>
               <td><span class="partial">△ Often requires cloud account</span></td>
             </tr>
@@ -281,7 +281,7 @@
                 <span class="feat-name">Privacy &amp; Host Permissions</span>
                 <span class="feat-sub">Zero backend server, zero account/email login, zero <code>&lt;all_urls&gt;</code> access</span>
               </td>
-              <td class="kt-col"><span class="yes">✓ Scoped to 7 AI platforms only</span></td>
+              <td class="kt-col"><span class="yes">✓ Scoped to 8 AI platforms only</span></td>
               <td><span class="partial">△ Requests broad page access</span></td>
               <td><span class="no">✕ Many request <code>&lt;all_urls&gt;</code> / login</span></td>
             </tr>
@@ -311,10 +311,10 @@
         <div class="card" style="border-color:rgba(124,92,255,0.45);">
           <h3>Use KeepThread for every AI research thread</h3>
           <p>
-            Whenever you're working inside ChatGPT, Gemini, Perplexity, DeepSeek, Grok, Kimi, or
-            GLM—and want intact math, citations, local images, cherry-picked answers, and
-            <strong>re-syncing that never wipes your Obsidian edits</strong>—KeepThread is built
-            specifically for that workflow.
+            Whenever you're working inside ChatGPT, Claude, Gemini &amp; AI Studio, Perplexity,
+            DeepSeek, Grok, Kimi, or GLM—and want intact math, citations, local images,
+            cherry-picked answers, and <strong>re-syncing that never wipes your Obsidian edits</strong>—KeepThread
+            is built specifically for that workflow.
           </p>
         </div>
       </div>
