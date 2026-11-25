@@ -7,7 +7,7 @@ Website: https://keepthread.jianlanzhiwei.com/
 Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
 Support: support@jianlanzhiwei.com
-Latest Release: v1.4.1 (8 AI platforms; public Chrome Web Store & Edge Add-ons currently serve v1.3.0 while v1.4.1 completes review)
+Latest Release: v1.4.1 (8 AI platforms; live on Chrome Web Store; Microsoft Edge Add-ons v1.4.1 in review while v1.3.0 remains live)
 
 ## Key Facts
 - **8-in-1 AI Platform Support (`v1.4.1`):**
