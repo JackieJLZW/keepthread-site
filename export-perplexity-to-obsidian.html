@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Export Perplexity to Obsidian With Clean Markdown Footnotes &amp; Sources — KeepThread</title>
+    <link rel="canonical" href="https://keepthread.jianlanzhiwei.com/export-perplexity-to-obsidian.html" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Export Perplexity research threads straight into Obsidian Markdown with real [^1] footnotes and a ## Sources section. Auto-scroll captures long threads, preserves your handwritten notes on re-sync, and runs 100% locally."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="KeepThread" />
+    <meta property="og:title" content="Export Perplexity to Obsidian With Intact Markdown Footnotes &amp; Sources" />
+    <meta property="og:description" content="Convert Perplexity inline citation pills into standard Obsidian footnotes + ## Sources automatically. 100% local Chrome & Edge sync." />
+    <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/export-perplexity-to-obsidian.html" />
+    <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "KeepThread",
+            "url": "https://keepthread.jianlanzhiwei.com/",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Chrome, Microsoft Edge",
+            "offers": [
+              { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free Forever" },
+              { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Lifetime Pro (One-Time)" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How does KeepThread preserve Perplexity citations in Obsidian?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "KeepThread resolves every inline Perplexity citation pill to its source URL and page title, converting them into standard Markdown footnotes ([^1], [^2]) with a structured ## Sources list at the end of your note."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does KeepThread capture long multi-turn Perplexity /search/ and /session/ threads?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. KeepThread supports both /search/ and /session/ Perplexity layouts and includes Auto-Scroll Full Capture to recover virtualized off-screen turns with URL-deduplicated footnote remapping."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I carry Perplexity research directly into ChatGPT or Gemini?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. KeepThread's local offline archive (Cmd+Shift+K) includes 1-click Copy Context Prompt so you can hand off your Perplexity research summary and citations to another AI tool immediately."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root { --bg:#0c0e14; --surface:#141824; --surface-2:#0f121c; --border:rgba(255,255,255,0.1); --text:#f3f4f8; --muted:#9aa3b2; --accent:#7c5cff; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif; background:radial-gradient(circle at 50% -10%, rgba(32,184,205,0.2), transparent 45%), var(--bg); color:var(--text); line-height:1.65; }
+      .wrap { max-width:920px; margin:0 auto; padding:32px 20px 80px; }
+      header { display:flex; align-items:center; justify-content:space-between; margin-bottom:52px; flex-wrap:wrap; gap:12px; }
+      .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; color:#fff; text-decoration:none; }
+      .nav a { color:var(--muted); text-decoration:none; margin-left:18px; font-size:14px; }
+      .nav a:hover { color:#fff; }
+      .pill { display:inline-block; padding:5px 12px; border-radius:999px; border:1px solid rgba(32,184,205,0.45); background:rgba(32,184,205,0.14); color:#67e8f9; font-size:12px; font-weight:600; }
+      h1 { font-size:clamp(30px,4.5vw,46px); line-height:1.14; margin:16px 0 14px; letter-spacing:-0.02em; }
+      h2 { font-size:22px; margin:44px 0 14px; }
+      .sub { font-size:17px; color:var(--muted); max-width:720px; margin:0 0 26px; }
+      .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:44px; }
+      .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:12px; font-weight:600; font-size:14px; text-decoration:none; transition:transform .15s ease; }
+      .btn-primary { background:var(--accent); color:#fff; box-shadow:0 10px 28px rgba(124,92,255,0.3); }
+      .btn-secondary { background:var(--surface); color:#fff; border:1px solid var(--border); }
+      .btn:hover { transform:translateY(-1px); }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:20px 0 36px; }
+      .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; }
+      .card h3 { margin:0 0 8px; font-size:16px; }
+      .card p { margin:0; font-size:14px; color:var(--muted); }
+      pre { background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:18px; overflow-x:auto; font-size:13px; line-height:1.55; color:#d7deec; }
+      code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+      .faq { display:grid; gap:12px; margin-top:16px; }
+      details { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
+      summary { font-weight:600; cursor:pointer; font-size:15px; }
+      details p { margin:10px 0 0; font-size:14px; color:var(--muted); }
+      .cross { margin-top:48px; padding:20px; background:var(--surface); border:1px solid var(--border); border-radius:16px; }
+      .cross-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+      .cross-links a { font-size:13px; color:#c4b5fd; text-decoration:none; padding:6px 12px; border-radius:999px; border:1px solid rgba(124,92,255,0.35); background:rgba(124,92,255,0.1); }
+      footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); }
+      footer a { color:var(--muted); text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs><linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7C5CFF"/><stop offset="100%" stop-color="#4338CA"/></linearGradient></defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)"/>
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF"/>
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./tools/fix-ai-latex.html">Free LaTeX Tool</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">Perplexity → Obsidian · Clean Footnotes &amp; Sources</span>
+      <h1>Export Perplexity Research to Obsidian With Intact Markdown Footnotes.</h1>
+      <p class="sub">
+        Perplexity's built-in copy button flattens citations or leaves dangling reference numbers behind.
+        KeepThread turns every inline Perplexity source pill into proper Obsidian Markdown footnotes
+        (<code>[^1]</code>) plus a clean <code>## Sources</code> bibliography—and syncs directly into your
+        local Vault without overwriting your annotations.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf" target="_blank" rel="noopener">Add to Chrome (Free)</a>
+        <a class="btn btn-secondary" href="https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani" target="_blank" rel="noopener">Add to Microsoft Edge</a>
+        <a class="btn btn-secondary" href="./guide.html">30-Second Vault Setup</a>
+      </div>
+
+      <h2>Why Researchers Use KeepThread for Perplexity → Obsidian</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Real Markdown Footnotes &amp; Titles</h3>
+          <p>Inline <code>.citation</code> pills become clickable Obsidian footnotes (<code>[^1]</code>, <code>[^2]</code>) backed by a deduplicated <code>## Sources</code> list with clean URLs and page titles.</p>
+        </div>
+        <div class="card">
+          <h3>Works on 2026 /search/ &amp; /session/ Threads</h3>
+          <p>Supports multi-turn Perplexity follow-ups and Pro / Deep Research threads, with Auto-Scroll Full Capture that remaps footnotes seamlessly across long sessions.</p>
+        </div>
+        <div class="card">
+          <h3>Protect Your Literature Notes on Re-Sync</h3>
+          <p>Ask follow-up questions in the same Perplexity thread later and click <strong>Update</strong>—your manual highlights, tags, YAML status, and <code>[[backlinks]]</code> stay untouched.</p>
+        </div>
+        <div class="card">
+          <h3>Cross-AI Local Memory (Cmd+Shift+K)</h3>
+          <p>Search all archived Perplexity threads offline and click <strong>Copy Context Prompt</strong> to carry verified citations directly into ChatGPT, Gemini, or DeepSeek.</p>
+        </div>
+      </div>
+
+      <h2>Example Perplexity Output in Obsidian</h2>
+      <pre><code>## You
+How does Chrome's File System Access API persist directory handles across restarts?
+
+## Perplexity
+Browsers allow storing a `FileSystemDirectoryHandle` directly inside IndexedDB[^1]
+and re-requesting read/write permission on the next session via `requestPermission()`[^2].
+
+---
+
+## Sources
+[^1]: [MDN — File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API)
+[^2]: [Chrome Developers — The File System Access API](https://developer.chrome.com/docs/capabilities/web-apis/file-system-access)</code></pre>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <details open>
+          <summary>Does KeepThread work with Perplexity Deep Research threads?</summary>
+          <p>Yes. KeepThread captures multi-section Perplexity research reports, tables, and inline citations cleanly into Obsidian Markdown and lets you cherry-pick individual turns if you only want the final synthesis.</p>
+        </details>
+        <details>
+          <summary>Are my Perplexity searches sent to any external server?</summary>
+          <p>No. KeepThread runs 100% locally in Chrome and Edge, requires no account, and never requests <code>&lt;all_urls&gt;</code> permissions.</p>
+        </details>
+      </div>
+
+      <section class="cross">
+        <strong>Export Guides for Other AI Platforms</strong>
+        <div class="cross-links">
+          <a href="./export-chatgpt-to-obsidian.html">ChatGPT → Obsidian</a>
+          <a href="./export-deepseek-to-obsidian.html">DeepSeek → Obsidian</a>
+          <a href="./export-gemini-to-obsidian.html">Gemini → Obsidian</a>
+          <a href="./export-grok-to-obsidian.html">Grok → Obsidian</a>
+          <a href="./compare.html">vs. Obsidian Web Clipper</a>
+          <a href="./tools/fix-ai-latex.html">Free AI LaTeX Fixer</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 KeepThread · 100% Local-First Obsidian Sync</span>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Quick Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="./privacy.html">Privacy</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

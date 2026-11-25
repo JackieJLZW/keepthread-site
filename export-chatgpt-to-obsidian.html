@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Export ChatGPT to Obsidian Without Overwriting Your Notes (2026) — KeepThread</title>
+    <link rel="canonical" href="https://keepthread.jianlanzhiwei.com/export-chatgpt-to-obsidian.html" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Export and sync ChatGPT conversations straight into your local Obsidian Vault as clean Markdown. Preserves handwritten notes, custom YAML, [[backlinks]], KaTeX LaTeX math, code blocks, and local images—100% locally with zero cloud servers."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="KeepThread" />
+    <meta property="og:title" content="Export ChatGPT to Obsidian Without Overwriting Your Notes" />
+    <meta
+      property="og:description"
+      content="100% local Chrome & Edge extension that syncs ChatGPT threads into Obsidian in-place while preserving your edits, LaTeX math, citations, and images."
+    />
+    <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/export-chatgpt-to-obsidian.html" />
+    <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Export ChatGPT to Obsidian Without Overwriting Your Notes" />
+    <meta name="twitter:description" content="Lossless in-place ChatGPT to Obsidian Vault sync. Clean KaTeX math, local images, YAML frontmatter, zero cloud servers." />
+    <meta name="twitter:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "KeepThread",
+            "url": "https://keepthread.jianlanzhiwei.com/",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Chrome, Microsoft Edge",
+            "offers": [
+              { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free Forever" },
+              { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Lifetime Pro (One-Time)" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How do I export a ChatGPT conversation to Obsidian without breaking LaTeX math?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "KeepThread reads the raw TeX directly from ChatGPT's KaTeX annotation nodes and writes clean Obsidian-native $...$ and $$...$$ delimiters without duplicated visual math text or broken \\[ \\] brackets."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What happens when I continue a ChatGPT thread and sync it to Obsidian again?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "KeepThread matches the existing note by conversation_id and updates the exact same Markdown file in-place—preserving your handwritten notes block, custom YAML properties, extra #tags, and [[backlinks]] with zero duplicate (1).md files."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does KeepThread upload my ChatGPT conversations to a third-party server?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. KeepThread runs 100% locally in Chrome and Edge via the browser File System Access API, has zero backend servers, requires no account signup, and never asks for <all_urls> permissions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why do ChatGPT images expire in Obsidian notes and how does KeepThread fix it?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "ChatGPT image URLs are signed temporary links that return HTTP 403 after a few hours. KeepThread downloads images locally into assets/keepthread/ inside your Vault and rewrites them as native ![[assets/keepthread/...]] embeds."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root { --bg:#0c0e14; --surface:#141824; --surface-2:#0f121c; --border:rgba(255,255,255,0.1); --text:#f3f4f8; --muted:#9aa3b2; --accent:#7c5cff; --emerald:#34d399; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif; background:radial-gradient(circle at 50% -10%, rgba(16,163,127,0.18), transparent 45%), var(--bg); color:var(--text); line-height:1.65; }
+      .wrap { max-width:920px; margin:0 auto; padding:32px 20px 80px; }
+      header { display:flex; align-items:center; justify-content:space-between; margin-bottom:52px; flex-wrap:wrap; gap:12px; }
+      .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; color:#fff; text-decoration:none; }
+      .nav a { color:var(--muted); text-decoration:none; margin-left:18px; font-size:14px; }
+      .nav a:hover { color:#fff; }
+      .pill { display:inline-block; padding:5px 12px; border-radius:999px; border:1px solid rgba(16,163,127,0.45); background:rgba(16,163,127,0.14); color:#6ee7b7; font-size:12px; font-weight:600; }
+      h1 { font-size:clamp(30px,4.5vw,46px); line-height:1.14; margin:16px 0 14px; letter-spacing:-0.02em; }
+      h2 { font-size:22px; margin:44px 0 14px; letter-spacing:-0.01em; }
+      .sub { font-size:17px; color:var(--muted); max-width:720px; margin:0 0 26px; }
+      .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:44px; }
+      .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:12px; font-weight:600; font-size:14px; text-decoration:none; transition:transform .15s ease; }
+      .btn-primary { background:var(--accent); color:#fff; box-shadow:0 10px 28px rgba(124,92,255,0.3); }
+      .btn-secondary { background:var(--surface); color:#fff; border:1px solid var(--border); }
+      .btn:hover { transform:translateY(-1px); }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:20px 0 36px; }
+      .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; }
+      .card h3 { margin:0 0 8px; font-size:16px; }
+      .card p { margin:0; font-size:14px; color:var(--muted); }
+      pre { background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:18px; overflow-x:auto; font-size:13px; line-height:1.55; color:#d7deec; }
+      code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+      .steps { counter-reset:step; list-style:none; padding:0; margin:16px 0 36px; display:grid; gap:14px; }
+      .steps li { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px 18px 54px; position:relative; font-size:14px; color:var(--muted); }
+      .steps li::before { counter-increment:step; content:counter(step); position:absolute; left:18px; top:18px; width:24px; height:24px; border-radius:999px; background:rgba(124,92,255,0.22); color:#c4b5fd; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center; }
+      .steps strong { color:#fff; }
+      .faq { display:grid; gap:12px; margin-top:16px; }
+      details { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
+      summary { font-weight:600; cursor:pointer; font-size:15px; }
+      details p { margin:10px 0 0; font-size:14px; color:var(--muted); }
+      .cross { margin-top:48px; padding:20px; background:var(--surface); border:1px solid var(--border); border-radius:16px; }
+      .cross-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+      .cross-links a { font-size:13px; color:#c4b5fd; text-decoration:none; padding:6px 12px; border-radius:999px; border:1px solid rgba(124,92,255,0.35); background:rgba(124,92,255,0.1); }
+      .cross-links a:hover { background:rgba(124,92,255,0.22); }
+      footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); }
+      footer a { color:var(--muted); text-decoration:none; }
+      footer a:hover { color:#fff; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs><linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7C5CFF"/><stop offset="100%" stop-color="#4338CA"/></linearGradient></defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)"/>
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF"/>
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./tools/fix-ai-latex.html">Free LaTeX Tool</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">ChatGPT → Obsidian · 100% Local · Zero Cloud Server</span>
+      <h1>Export ChatGPT to Obsidian Without Overwriting Your Notes.</h1>
+      <p class="sub">
+        Stop fighting duplicated <code>chat (1).md</code> downloads, broken KaTeX formulas, and 403-expired
+        DALL·E / chart images. KeepThread writes clean ChatGPT threads straight into your local Obsidian
+        Vault and updates them in-place while protecting your handwritten notes, custom YAML, and
+        <code>[[backlinks]]</code>.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf" target="_blank" rel="noopener">Add to Chrome (Free)</a>
+        <a class="btn btn-secondary" href="https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani" target="_blank" rel="noopener">Add to Microsoft Edge</a>
+        <a class="btn btn-secondary" href="./tools/fix-ai-latex.html">Try Free Browser LaTeX Fixer</a>
+      </div>
+
+      <h2>Why Ordinary ChatGPT Exporters Break Real Obsidian Vaults</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Lossless In-Place Re-Sync</h3>
+          <p>Continue a ChatGPT thread tomorrow and click <strong>Update</strong>. KeepThread matches by <code>conversation_id</code> and appends new turns without erasing your <code>## My Takeaways</code>, custom YAML properties, or <code>[[backlinks]]</code>.</p>
+        </div>
+        <div class="card">
+          <h3>Intact KaTeX Math &amp; Code Cards</h3>
+          <p>Extracts raw TeX directly from <code>annotation[encoding="application/x-tex"]</code> into Obsidian-native <code>$...$</code> and <code>$$...$$</code> while keeping code language tags and stripping "Copy code" UI clutter.</p>
+        </div>
+        <div class="card">
+          <h3>Anti-403 Local Images &amp; Attachments</h3>
+          <p>ChatGPT signed image links expire quickly. KeepThread downloads conversation images directly into <code>assets/keepthread/</code> as permanent <code>![[...]]</code> Obsidian embeds and records uploaded file names.</p>
+        </div>
+        <div class="card">
+          <h3>Anti-Truncation Full Capture</h3>
+          <p>Long ChatGPT conversations unmount off-screen messages. Auto-Scroll Full Capture walks the thread cleanly and blocks accidental shorter overwrites.</p>
+        </div>
+        <div class="card">
+          <h3>Obsidian 1.9+ Bases (.base) Ready</h3>
+          <p>Automatically maintains <code>AI-Chats/AI-Chats.base</code> so you can filter, group, and query every ChatGPT research note natively in Obsidian Bases without writing Dataview queries.</p>
+        </div>
+        <div class="card">
+          <h3>Zero Cloud, Zero &lt;all_urls&gt;</h3>
+          <p>Runs strictly inside Chrome or Edge using the local File System Access API. No login, no third-party cloud relay, and scoped only to supported AI chat domains.</p>
+        </div>
+      </div>
+
+      <h2>What Your Exported ChatGPT Obsidian Note Looks Like</h2>
+      <pre><code>---
+title: "Transformer Attention Math Notes"
+source: chatgpt
+conversation_id: "67a8f2c1-..."
+url: "https://chatgpt.com/c/67a8f2c1-..."
+updated: 2026-11-25T09:00:00Z
+status: reviewed                  # ← your custom YAML preserved on re-sync ✓
+project: "[[ML Reading List]]"    # ← your backlink preserved ✓
+tags:
+  - ai-chat
+  - chatgpt
+  - deep-learning                 # ← your extra tag preserved ✓
+---
+
+&lt;!-- keepthread:notes:start --&gt;
+## My Takeaways
+- Compare scaled dot-product scaling against [[FlashAttention Notes]].
+&lt;!-- keepthread:notes:end --&gt;
+
+## You
+Explain why attention divides by $\sqrt{d_k}$.
+
+## ChatGPT
+Without scaling, dot products grow linearly with dimension $d_k$:
+
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$</code></pre>
+
+      <h2>How to Sync ChatGPT to Obsidian in 30 Seconds</h2>
+      <ol class="steps">
+        <li><strong>Install KeepThread (Free):</strong> Add the extension from the Chrome Web Store or Microsoft Edge Add-ons—no account signup required.</li>
+        <li><strong>Link your local Obsidian Vault folder once:</strong> Click <em>Link Vault</em> and pick your local vault directory via the browser's File System Access API (works seamlessly with iCloud, Obsidian Sync, Git, or Syncthing).</li>
+        <li><strong>Click Sync (or press <code>Alt+Shift+S</code>) on any ChatGPT tab:</strong> Cherry-pick specific turns or export the full thread. Continue the chat next week and click <em>Update</em>—your handwritten notes stay untouched.</li>
+      </ol>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <details open>
+          <summary>Is KeepThread free for exporting ChatGPT to Obsidian?</summary>
+          <p>Yes. Unlimited single-thread clean Markdown downloads and clipboard copies—including KaTeX math cleanup, Full Capture, custom speaker headings, and 5 direct Obsidian Vault syncs—are free forever. Unlimited direct Vault syncs, multi-select batch sync, full Obsidian ZIP export, and custom templates are an optional $19 one-time Lifetime Pro license (no subscription).</p>
+        </details>
+        <details>
+          <summary>Does KeepThread work with ChatGPT Search citations and tables?</summary>
+          <p>Yes. Inline ChatGPT web citations are preserved cleanly, referral tracking noise like <code>?utm_source=chatgpt.com</code> is stripped from URLs, and HTML tables convert into standard GFM Markdown tables.</p>
+        </details>
+        <details>
+          <summary>How is KeepThread different from Obsidian Web Clipper?</summary>
+          <p>Obsidian Web Clipper is great for static blog articles, but struggles with multi-turn virtualized AI chats, LaTeX annotation duplication, expiring images, and lossless re-syncing. See our <a href="./compare.html" style="color:#c4b5fd;">full 2026 side-by-side comparison</a>.</p>
+        </details>
+      </div>
+
+      <section class="cross">
+        <strong>Export Guides for Other AI Platforms</strong>
+        <div class="cross-links">
+          <a href="./export-deepseek-to-obsidian.html">DeepSeek → Obsidian</a>
+          <a href="./export-perplexity-to-obsidian.html">Perplexity → Obsidian</a>
+          <a href="./export-gemini-to-obsidian.html">Gemini → Obsidian</a>
+          <a href="./export-grok-to-obsidian.html">Grok → Obsidian</a>
+          <a href="./compare.html">vs. Obsidian Web Clipper</a>
+          <a href="./tools/fix-ai-latex.html">Free AI LaTeX Fixer</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 KeepThread · 100% Local-First Obsidian Sync</span>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Quick Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="./privacy.html">Privacy</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

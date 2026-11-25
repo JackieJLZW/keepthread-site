@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Export Google Gemini &amp; Deep Research to Obsidian Markdown — KeepThread</title>
+    <link rel="canonical" href="https://keepthread.jianlanzhiwei.com/export-gemini-to-obsidian.html" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%237C5CFF'/%3E%3Cstop offset='100%25' stop-color='%234338CA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M21 17v30M23 32l19-14M28 29l15 18' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%236EE7FF'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Export Google Gemini conversations and Deep Research reports directly into your Obsidian Vault as clean Markdown. Strips hidden UI labels, preserves KaTeX math, folds thoughts into Obsidian callouts, and saves images locally."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="KeepThread" />
+    <meta property="og:title" content="Export Google Gemini &amp; Deep Research Straight Into Obsidian" />
+    <meta property="og:description" content="100% local Chrome & Edge sync for Google Gemini conversations, Deep Research reports, KaTeX math, thinking callouts, and local images." />
+    <meta property="og:url" content="https://keepthread.jianlanzhiwei.com/export-gemini-to-obsidian.html" />
+    <meta property="og:image" content="https://keepthread.jianlanzhiwei.com/og-cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "KeepThread",
+            "url": "https://keepthread.jianlanzhiwei.com/",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Chrome, Microsoft Edge",
+            "offers": [
+              { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free Forever" },
+              { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Lifetime Pro (One-Time)" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Can KeepThread export Google Gemini Deep Research reports to Obsidian?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. KeepThread natively reads Gemini chat threads and Deep Research panels, strips hidden screen-reader boilerplate ('Gemini said', 'Show thinking'), preserves tables, citations, and KaTeX math, and writes clean Markdown straight into your Obsidian Vault."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does KeepThread save authenticated Google Gemini images locally?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. KeepThread uses session-aware local image archiving to download generated and uploaded Gemini images into assets/keepthread/ inside your Vault as ![[...]] embeds so links never break."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root { --bg:#0c0e14; --surface:#141824; --surface-2:#0f121c; --border:rgba(255,255,255,0.1); --text:#f3f4f8; --muted:#9aa3b2; --accent:#7c5cff; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif; background:radial-gradient(circle at 50% -10%, rgba(66,133,244,0.22), transparent 45%), var(--bg); color:var(--text); line-height:1.65; }
+      .wrap { max-width:920px; margin:0 auto; padding:32px 20px 80px; }
+      header { display:flex; align-items:center; justify-content:space-between; margin-bottom:52px; flex-wrap:wrap; gap:12px; }
+      .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; color:#fff; text-decoration:none; }
+      .nav a { color:var(--muted); text-decoration:none; margin-left:18px; font-size:14px; }
+      .nav a:hover { color:#fff; }
+      .pill { display:inline-block; padding:5px 12px; border-radius:999px; border:1px solid rgba(66,133,244,0.45); background:rgba(66,133,244,0.16); color:#93c5fd; font-size:12px; font-weight:600; }
+      h1 { font-size:clamp(30px,4.5vw,46px); line-height:1.14; margin:16px 0 14px; letter-spacing:-0.02em; }
+      h2 { font-size:22px; margin:44px 0 14px; }
+      .sub { font-size:17px; color:var(--muted); max-width:720px; margin:0 0 26px; }
+      .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:44px; }
+      .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:12px; font-weight:600; font-size:14px; text-decoration:none; transition:transform .15s ease; }
+      .btn-primary { background:var(--accent); color:#fff; box-shadow:0 10px 28px rgba(124,92,255,0.3); }
+      .btn-secondary { background:var(--surface); color:#fff; border:1px solid var(--border); }
+      .btn:hover { transform:translateY(-1px); }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:20px 0 36px; }
+      .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; }
+      .card h3 { margin:0 0 8px; font-size:16px; }
+      .card p { margin:0; font-size:14px; color:var(--muted); }
+      pre { background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:18px; overflow-x:auto; font-size:13px; line-height:1.55; color:#d7deec; }
+      code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+      .faq { display:grid; gap:12px; margin-top:16px; }
+      details { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; }
+      summary { font-weight:600; cursor:pointer; font-size:15px; }
+      details p { margin:10px 0 0; font-size:14px; color:var(--muted); }
+      .cross { margin-top:48px; padding:20px; background:var(--surface); border:1px solid var(--border); border-radius:16px; }
+      .cross-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+      .cross-links a { font-size:13px; color:#c4b5fd; text-decoration:none; padding:6px 12px; border-radius:999px; border:1px solid rgba(124,92,255,0.35); background:rgba(124,92,255,0.1); }
+      footer { margin-top:64px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); }
+      footer a { color:var(--muted); text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="./index.html">
+          <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+            <defs><linearGradient id="kt-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7C5CFF"/><stop offset="100%" stop-color="#4338CA"/></linearGradient></defs>
+            <rect width="64" height="64" rx="16" fill="url(#kt-grad)"/>
+            <path d="M21 17v30M23 32l19-14M28 29l15 18" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="44" cy="18" r="5" fill="#6EE7FF"/>
+          </svg>
+          KeepThread
+        </a>
+        <nav class="nav">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./tools/fix-ai-latex.html">Free LaTeX Tool</a>
+          <a href="./privacy.html">Privacy</a>
+        </nav>
+      </header>
+
+      <span class="pill">Google Gemini &amp; Deep Research → Obsidian · 100% Local</span>
+      <h1>Export Google Gemini &amp; Deep Research Straight Into Obsidian.</h1>
+      <p class="sub">
+        Tired of exporting Gemini chats through Google Docs just to get plain Markdown? KeepThread
+        captures Gemini conversations, Thinking panels, and Deep Research reports directly into your
+        local Obsidian Vault—stripping hidden UI clutter, archiving images locally, and keeping your
+        manual Obsidian edits safe on every update.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf" target="_blank" rel="noopener">Add to Chrome (Free)</a>
+        <a class="btn btn-secondary" href="https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani" target="_blank" rel="noopener">Add to Microsoft Edge</a>
+        <a class="btn btn-secondary" href="./compare.html">See Full Comparison</a>
+      </div>
+
+      <h2>Engineered for Clean Gemini → Obsidian Markdown</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Deep Research &amp; Thinking Panels</h3>
+          <p>Extracts multi-page Gemini Deep Research reports cleanly and folds Gemini reasoning traces into native Obsidian <code>&gt; [!note]- Thinking Process</code> callouts.</p>
+        </div>
+        <div class="card">
+          <h3>Zero Screen-Reader Boilerplate</h3>
+          <p>Automatically strips invisible accessibility labels like <em>"Gemini said"</em>, <em>"You said"</em>, and toolbar button text that pollute standard copy-paste exports.</p>
+        </div>
+        <div class="card">
+          <h3>Session-Aware Local Image Saving</h3>
+          <p>Saves both generated and uploaded Gemini images (even authenticated Google URLs) locally into <code>assets/keepthread/</code> as durable <code>![[...]]</code> Obsidian embeds.</p>
+        </div>
+        <div class="card">
+          <h3>Attachments, Tables &amp; Bases Index</h3>
+          <p>Records uploaded PDF/spreadsheet filenames per turn, converts HTML tables to GFM Markdown, and auto-updates your Obsidian <code>AI-Chats.base</code> view.</p>
+        </div>
+      </div>
+
+      <h2>Example Gemini Deep Research Note in Obsidian</h2>
+      <pre><code>---
+title: "Q4 European B2B Compliance Research"
+source: gemini
+conversation_id: "gem-91a4c8..."
+url: "https://gemini.google.com/app/91a4c8..."
+tags:
+  - ai-chat
+  - gemini
+---
+
+## You
+*Attachments: `Q3 Financial Report.pdf`, `chart plot.png`*
+Compare both quarters and inspect the plot.
+
+![[assets/keepthread/gemini-chart-plot.png]]
+
+## Gemini
+&gt; [!note]- Thinking Process
+&gt; Cross-referencing Q3 baseline revenue against Q4 growth trajectory...
+
+Q4 grew **22%** quarter-over-quarter with key highlights summarized in the table below.</code></pre>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <details open>
+          <summary>Do I need Google Docs or an API key to export Gemini to Obsidian?</summary>
+          <p>No. KeepThread reads the active Gemini tab locally in Chrome or Edge and writes clean Markdown straight to your Obsidian Vault folder—no Google Docs detour, no API keys, and zero cloud servers.</p>
+        </details>
+        <details>
+          <summary>Will re-syncing a long Gemini chat erase notes I added in Obsidian?</summary>
+          <p>Never. KeepThread merges new turns in-place while protecting your handwritten notes block, custom YAML properties, extra tags, and <code>[[backlinks]]</code>.</p>
+        </details>
+      </div>
+
+      <section class="cross">
+        <strong>Export Guides for Other AI Platforms</strong>
+        <div class="cross-links">
+          <a href="./export-chatgpt-to-obsidian.html">ChatGPT → Obsidian</a>
+          <a href="./export-deepseek-to-obsidian.html">DeepSeek → Obsidian</a>
+          <a href="./export-perplexity-to-obsidian.html">Perplexity → Obsidian</a>
+          <a href="./export-grok-to-obsidian.html">Grok → Obsidian</a>
+          <a href="./compare.html">vs. Obsidian Web Clipper</a>
+          <a href="./tools/fix-ai-latex.html">Free AI LaTeX Fixer</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 KeepThread · 100% Local-First Obsidian Sync</span>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <a href="./index.html">Home</a>
+          <a href="./guide.html">Quick Guide</a>
+          <a href="./compare.html">Compare</a>
+          <a href="mailto:support@jianlanzhiwei.com">Support</a>
+          <a href="./privacy.html">Privacy</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

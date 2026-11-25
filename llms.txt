@@ -31,6 +31,11 @@ Current Release: v1.3.0 (November 2026)
 
 ## Pages, Free Tools & Documentation
 - [KeepThread Home](https://keepthread.jianlanzhiwei.com/): Overview, 21-second product demo, feature summary, store links, and pricing.
+- [Export ChatGPT to Obsidian](https://keepthread.jianlanzhiwei.com/export-chatgpt-to-obsidian.html): Lossless in-place ChatGPT to Obsidian Vault sync, KaTeX math fidelity, and anti-403 local image archiving.
+- [Export DeepSeek-R1 to Obsidian](https://keepthread.jianlanzhiwei.com/export-deepseek-to-obsidian.html): Folding DeepSeek-R1 reasoning traces into collapsible Obsidian callouts, clean LaTeX math, and search footnotes.
+- [Export Perplexity to Obsidian](https://keepthread.jianlanzhiwei.com/export-perplexity-to-obsidian.html): Converting Perplexity inline citation pills into standard Markdown footnotes (`[^1]`) and `## Sources` bibliographies.
+- [Export Google Gemini & Deep Research to Obsidian](https://keepthread.jianlanzhiwei.com/export-gemini-to-obsidian.html): Exporting Gemini Deep Research reports, thinking panels, and authenticated local images straight to Obsidian.
+- [Export Grok to Obsidian](https://keepthread.jianlanzhiwei.com/export-grok-to-obsidian.html): Auto-scroll full capture for long virtualized Grok threads, reasoning callouts, and code blocks.
 - [Quick Start Guide & Lossless Sync](https://keepthread.jianlanzhiwei.com/guide.html): 30-second Vault setup walkthrough, lossless notes preservation, and custom template guide.
 - [KeepThread vs Obsidian Web Clipper & ChatGPT Exporters (2026 Comparison)](https://keepthread.jianlanzhiwei.com/compare.html): Feature-by-feature comparison covering lossless re-sync, LaTeX fidelity, Perplexity/Kimi citations, local image archiving, and Obsidian Bases.
 - [Free ChatGPT & DeepSeek LaTeX to Obsidian Markdown Converter](https://keepthread.jianlanzhiwei.com/tools/fix-ai-latex.html): Free browser-based tool that converts `\[...\]` / `\(...\)` AI math output into clean Obsidian `$` / `$$` Markdown locally.
