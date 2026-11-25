@@ -7,13 +7,13 @@ Website: https://keepthread.jianlanzhiwei.com/
 Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
 Support: support@jianlanzhiwei.com
-Latest Release: v1.4.0 (8 AI platforms, submitting to Chrome Web Store & Microsoft Edge Add-ons)
+Latest Release: v1.4.1 (8 AI platforms; public Chrome Web Store & Edge Add-ons currently serve v1.3.0 while v1.4.1 completes review)
 
 ## Key Facts
-- **8-in-1 AI Platform Support (`v1.4.0`):**
+- **8-in-1 AI Platform Support (`v1.4.1`):**
   - **ChatGPT** (`chatgpt.com`, `chat.openai.com` — supports modern & classic mixed DOM turns, code cards, KaTeX, GFM tables, citations & attachments)
   - **Claude** (`claude.ai`, `www.claude.ai` — isolates Extended Thinking into collapsible callouts, preserves button-wrapped & multi-span Artifact titles, turn-scoped web-search citations, clickable images & attachments)
-  - **Google Gemini & AI Studio** (`gemini.google.com`, `aistudio.google.com` + Google AI Mode `udm=50` — Deep Research & Thinking panels, strips hidden screen-reader labels, inline citations & `## Sources`, share links & attachments)
+  - **Google Gemini & AI Studio** (`gemini.google.com`, `aistudio.google.com` — Deep Research & Thinking panels, strips hidden screen-reader labels, inline citations & `## Sources`, share links & attachments)
   - **Perplexity** (`perplexity.ai`, `www.perplexity.ai` — `/session/` and `/search/`, converts inline citation pills into turn-scoped Markdown footnotes and `## Sources`)
   - **DeepSeek** (`chat.deepseek.com` — converts DeepSeek-R1 reasoning blocks into Obsidian collapsible callouts `> [!note]- Thinking Process`, preserves search citations, `/share/` links & attachments)
   - **Grok** (`grok.com`, `www.grok.com` — user/assistant turns, code cards, reasoning callouts, citations & `## Sources`, percent-encoded `/share/` links & KaTeX)
