@@ -54,12 +54,18 @@
 
       <h2>3. Minimal Host Permissions</h2>
       <p>
-        KeepThread never requests <code>&lt;all_urls&gt;</code> permissions. Content scripts are
-        strictly scoped to the supported AI chat platforms (<code>chatgpt.com</code> /
-        <code>chat.openai.com</code>, <code>claude.ai</code>, <code>gemini.google.com</code>,
-        <code>perplexity.ai</code>, <code>chat.deepseek.com</code>, <code>grok.com</code>,
-        <code>kimi.com</code> / <code>kimi.moonshot.cn</code>, and <code>chatglm.cn</code> /
-        <code>bigmodel.cn</code> / <code>chat.z.ai</code> / <code>zchat.z.ai</code>).
+        KeepThread never requests <code>&lt;all_urls&gt;</code> permissions. Content scripts and
+        host permissions are strictly scoped to the supported AI chat domains
+        (<code>chatgpt.com</code>, <code>chat.openai.com</code>, <code>claude.ai</code>,
+        <code>www.claude.ai</code>, <code>gemini.google.com</code>,
+        <code>aistudio.google.com</code>, <code>perplexity.ai</code>,
+        <code>www.perplexity.ai</code>, <code>chat.deepseek.com</code>, <code>grok.com</code>,
+        <code>www.grok.com</code>, <code>kimi.com</code>, <code>www.kimi.com</code>,
+        <code>kimi.moonshot.cn</code>, <code>chatglm.cn</code>, <code>www.chatglm.cn</code>,
+        <code>bigmodel.cn</code>, <code>www.bigmodel.cn</code>, <code>chat.z.ai</code>, and
+        <code>zchat.z.ai</code>). When local image archiving is enabled, KeepThread fetches
+        referenced conversation images directly from their original hosts solely to save them into
+        your local Obsidian Vault folder.
       </p>
 
       <h2>4. Optional Pro License Verification</h2>

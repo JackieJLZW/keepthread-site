@@ -7,7 +7,7 @@ Website: https://keepthread.jianlanzhiwei.com/
 Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
 Support: support@jianlanzhiwei.com
-Current Release: v1.3.0 (November 2026)
+Current Store Release: v1.3.1 (7 live-verified AI platforms; v1.4.0 adds Claude beta)
 
 ## Key Facts
 - **7-in-1 Live-Verified AI Platform Support:**
