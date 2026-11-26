@@ -7,8 +7,9 @@ Website: https://keepthread.jianlanzhiwei.com/
 Changelog: https://keepthread.jianlanzhiwei.com/changelog.html
 Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
+Firefox Add-ons (AMO): https://addons.mozilla.org/en-US/firefox/addon/keepthread/ (v1.4.2 initial listing awaiting review)
 Support: support@jianlanzhiwei.com
-Latest Release: v1.4.2 (8 AI platforms + Firefox MV3 graceful export mode ready for store rollout; Chrome Web Store live v1.4.1; Microsoft Edge Add-ons v1.4.1 in review while v1.3.0 remains live)
+Latest Release: v1.4.2 (in review on Chrome Web Store, Microsoft Edge Add-ons, and Firefox AMO; Chrome Web Store live v1.4.1; Microsoft Edge Add-ons live v1.3.0)
 
 ## Key Facts
 - **8-in-1 AI Platform Support (`v1.4.2`):**
