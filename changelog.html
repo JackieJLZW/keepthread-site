@@ -160,8 +160,34 @@
       <article class="release latest">
         <div class="rel-head">
           <div class="rel-ver">
-            v1.4.2
+            v1.4.3
             <span class="tag tag-purple">Latest Release</span>
+          </div>
+          <span class="rel-date">2026-11-26</span>
+        </div>
+        <ul>
+          <li>
+            <strong>Fixed Infinite "Scanning current thread locally..." Spinner on Windows Chrome</strong>:
+            Added bounded timeout guards around persisted <code>FileSystemDirectoryHandle.queryPermission()</code>
+            and <code>isSameEntry()</code> calls across Popup, Vault Archive, Sync, Re-link, and ZIP export
+            pipelines. If the browser stalls while checking a previously linked folder handle, KeepThread now
+            finishes scanning immediately, preserves your archive count, and guides you straight to one-click
+            folder re-linking instead of hanging.
+          </li>
+          <li>
+            <strong>Startup Fault Isolation, Fast Non-AI Tab Fail &amp; IPC/IndexedDB Hardening</strong>:
+            Isolated Popup and Vault startup reads with per-call timeouts, skipped redundant tab messaging on
+            non-AI URLs, added bounded timeouts on <code>chrome.tabs.sendMessage</code> (sleeping/loading tabs),
+            reused IndexedDB connections with <code>onversionchange</code> / <code>onblocked</code> / <code>onabort</code>
+            guards, and wrapped content-script extraction handlers in safe error boundaries.
+          </li>
+        </ul>
+      </article>
+
+      <article class="release">
+        <div class="rel-head">
+          <div class="rel-ver">
+            v1.4.2
           </div>
           <span class="rel-date">2026-11-26</span>
         </div>

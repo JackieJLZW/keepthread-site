@@ -7,9 +7,9 @@ Website: https://keepthread.jianlanzhiwei.com/
 Changelog: https://keepthread.jianlanzhiwei.com/changelog.html
 Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
-Firefox Add-ons (AMO): https://addons.mozilla.org/en-US/firefox/addon/keepthread/ (v1.4.2 initial listing awaiting review)
+Firefox Add-ons (AMO): https://addons.mozilla.org/en-US/firefox/addon/keepthread/ (v1.4.3 awaiting review)
 Support: support@jianlanzhiwei.com
-Latest Release: v1.4.2 (in review on Chrome Web Store, Microsoft Edge Add-ons, and Firefox AMO; Chrome Web Store live v1.4.1; Microsoft Edge Add-ons live v1.3.0)
+Latest Release: v1.4.3 (hotfix preventing Chrome FileSystemDirectoryHandle.queryPermission startup hangs + full v1.4.2 feature set; submitting to Chrome Web Store, Microsoft Edge Add-ons, and Firefox AMO; Chrome Web Store live v1.4.1; Microsoft Edge Add-ons live v1.3.0)
 
 ## Key Facts
 - **8-in-1 AI Platform Support (`v1.4.2`):**
@@ -43,6 +43,6 @@ Latest Release: v1.4.2 (in review on Chrome Web Store, Microsoft Edge Add-ons, a
 - [Export Grok to Obsidian](https://keepthread.jianlanzhiwei.com/export-grok-to-obsidian.html): Auto-scroll full capture for long virtualized Grok threads, reasoning callouts, citations, and code blocks.
 - [Quick Start Guide & Lossless Sync](https://keepthread.jianlanzhiwei.com/guide.html): 30-second Vault setup walkthrough, lossless notes preservation, and custom template guide.
 - [KeepThread vs Obsidian Web Clipper & ChatGPT Exporters (2026 Comparison)](https://keepthread.jianlanzhiwei.com/compare.html): Feature-by-feature comparison covering 8 AI platforms, lossless re-sync, LaTeX fidelity, citations, local image archiving, and Obsidian Bases.
-- [Public Changelog & Release Notes](https://keepthread.jianlanzhiwei.com/changelog.html): Full release history including v1.4.2 (Claude Artifacts, Tailwind code-header cleanup, free single-thread image ZIP, inline rename & tag echo, Firefox MV3 mode).
+- [Public Changelog & Release Notes](https://keepthread.jianlanzhiwei.com/changelog.html): Full release history including v1.4.3 (FileSystem permission & startup deadlock resilience) and v1.4.2 (Claude Artifacts, Tailwind code-header cleanup, free single-thread image ZIP, inline rename & tag echo, Firefox MV3 mode).
 - [Free ChatGPT & DeepSeek LaTeX to Obsidian Markdown Converter](https://keepthread.jianlanzhiwei.com/tools/fix-ai-latex.html): Free browser-based tool that converts `\[...\]` / `\(...\)` AI math output into clean Obsidian `$` / `$$` Markdown locally.
 - [Privacy Policy](https://keepthread.jianlanzhiwei.com/privacy.html): Zero-cloud architecture, minimal 20-host permissions, local image archiving transparency, and Dodo Payments license key verification details.
