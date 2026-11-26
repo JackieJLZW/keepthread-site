@@ -40,16 +40,16 @@
         "@type": "SoftwareApplication",
         "name": "KeepThread",
         "url": "https://keepthread.jianlanzhiwei.com/",
-        "softwareVersion": "1.4.1",
+        "softwareVersion": "1.4.2",
         "applicationCategory": "ProductivityApplication",
-        "operatingSystem": "Chrome, Microsoft Edge",
-        "description": "100% local Chrome & Edge extension to export and losslessly sync ChatGPT, Claude, Gemini & AI Studio, Perplexity, DeepSeek, Grok, Kimi & GLM chats straight into Obsidian & Markdown.",
+        "operatingSystem": "Chrome, Microsoft Edge, Firefox",
+        "description": "100% local Chrome, Edge & Firefox extension to export and losslessly sync ChatGPT, Claude, Gemini & AI Studio, Perplexity, DeepSeek, Grok, Kimi & GLM chats straight into Obsidian & Markdown.",
         "featureList": [
-          "8-in-1 local sync for ChatGPT, Claude, Google Gemini (including Deep Research & AI Studio), Perplexity, DeepSeek, Grok, Kimi, and GLM with zero cloud servers",
-          "Lossless in-place Obsidian Vault sync preserving handwritten notes, custom YAML frontmatter, tags, and [[backlinks]]",
-          "Cherry-pick turns with 1-click Only single-turn mode, per-export Thinking On/Off toggle, and Needs Sync archive filtering",
-          "Anti-truncation Auto-Scroll full capture (up to 1,000 steps) with shifted-window and SPA-switch protection, Mermaid & LaTeX cleanup, turn-scoped citations and attachment preservation",
-          "Multi-select batch sync to Obsidian Vault, full Obsidian ZIP export, portable local JSON archive backup/restore, session-aware local image archiving, and Obsidian Bases (.base) dashboard",
+          "8-in-1 local sync for ChatGPT, Claude (including standalone /artifact/* pages & open Artifact side-panel source), Google Gemini (Deep Research & AI Studio), Perplexity, DeepSeek, Grok, Kimi, and GLM with zero cloud servers",
+          "Lossless in-place Obsidian Vault sync preserving handwritten notes, custom YAML frontmatter, tags, and [[backlinks]]—zero Local REST API plugin required",
+          "Inline title rename & synced tag editing, cherry-pick turns with 1-click Only single-turn mode, per-export Thinking On/Off toggle, and Needs Sync archive filtering",
+          "Anti-truncation Auto-Scroll full capture (up to 1,000 steps) with shifted-window and SPA-switch protection, pure Tailwind code-header cleanup, Mermaid & LaTeX fidelity, turn-scoped citations and attachment preservation",
+          "Free single-thread image-bundled .zip export (ideal for Firefox or unlinked workflows), multi-select batch sync to Obsidian Vault, full Obsidian ZIP export, portable local JSON backup/restore, and Obsidian Bases (.base) dashboard",
           "100% offline cross-AI search (Cmd+Shift+K / Ctrl+Shift+K) and 1-click Copy Context Prompt"
         ],
         "sameAs": [
@@ -168,7 +168,7 @@
         </nav>
       </header>
 
-      <span class="pill">100% Local · 8-in-1 AI Sync (v1.4.0) · Zero Cloud Server · No Subscription</span>
+      <span class="pill">100% Local · 8-in-1 AI Sync (v1.4.2) · Zero Cloud Server · No Subscription</span>
       <h1>Sync ChatGPT, Claude, Gemini, Perplexity, DeepSeek, Grok, Kimi &amp; GLM straight into Obsidian.</h1>
       <p class="sub">
         Stop losing research across AI tabs or fighting broken copy-paste. KeepThread writes clean
@@ -209,11 +209,12 @@
           </p>
         </div>
         <div class="card">
-          <h3>Cherry-Pick Only, Thinking Toggle &amp; Local Images</h3>
+          <h3>Cherry-Pick Only, Inline Rename &amp; Offline Image ZIP</h3>
           <p>
-            Pick exact turns (or click <strong>Only</strong> for one golden reply), toggle
-            <strong>Thinking On/Off</strong> per export without changing global settings, and save
-            images locally to <code>assets/keepthread/</code> as <code>![[...]]</code> so links never 403-expire.
+            Rename notes &amp; edit tags right before syncing, pick exact turns (or click
+            <strong>Only</strong> for one golden reply), toggle <strong>Thinking On/Off</strong> per
+            export, and bundle images locally into <code>assets/keepthread/</code> via Vault sync or
+            free single-thread <code>.zip</code>.
           </p>
         </div>
         <div class="card">
@@ -332,6 +333,7 @@
         <div style="display:flex;gap:16px;flex-wrap:wrap;">
           <a href="./guide.html">Quick Guide</a>
           <a href="./compare.html">Compare</a>
+          <a href="./changelog.html">Changelog</a>
           <a href="./tools/fix-ai-latex.html">Free LaTeX Converter</a>
           <a href="mailto:support@jianlanzhiwei.com">Support</a>
           <a href="./privacy.html">Privacy Policy</a>

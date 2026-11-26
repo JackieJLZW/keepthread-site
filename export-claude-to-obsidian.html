@@ -29,9 +29,9 @@
             "@type": "SoftwareApplication",
             "name": "KeepThread",
             "url": "https://keepthread.jianlanzhiwei.com/",
-            "softwareVersion": "1.4.0",
+            "softwareVersion": "1.4.2",
             "applicationCategory": "ProductivityApplication",
-            "operatingSystem": "Chrome, Microsoft Edge",
+            "operatingSystem": "Chrome, Microsoft Edge, Firefox",
             "offers": [
               { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free Forever" },
               { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Lifetime Pro (One-Time)" }
@@ -50,10 +50,10 @@
               },
               {
                 "@type": "Question",
-                "name": "Does KeepThread preserve Claude Artifact card titles, attachments, and images?",
+                "name": "Does KeepThread preserve Claude Artifacts, code blocks, attachments, and images?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. KeepThread preserves button-wrapped Artifact titles (including multi-span filenames like Dashboard.tsx), records uploaded PDF and file attachment names once without duplicating thumbnails, and archives conversation images locally into assets/keepthread/."
+                  "text": "Yes. KeepThread preserves button-wrapped Artifact titles (including multi-span filenames like Dashboard.tsx), captures standalone claude.ai/artifact/* pages and open Artifact side-panel code/document source, strips redundant Tailwind code headers, records uploaded file names once, and archives conversation images locally into assets/keepthread/."
                 }
               },
               {
@@ -147,8 +147,8 @@
           <p>Separates Claude's Extended Thinking blocks cleanly into collapsed <code>&gt; [!note]- Thinking Process</code> Obsidian callouts, or strips reasoning cleanly for a single export with the popup's temporary <strong>Thinking: On/Off</strong> toggle.</p>
         </div>
         <div class="card">
-          <h3>Artifact Titles, Code Cards &amp; Attachments</h3>
-          <p>Preserves clickable Artifact card titles (even multi-span filenames like <code>Dashboard.tsx</code>), code language tags, uploaded PDF/file names without duplicating inline thumbnails, and clickable raster images.</p>
+          <h3>Artifacts, Clean Code Blocks &amp; Attachments</h3>
+          <p>Preserves clickable Artifact titles (even multi-span filenames like <code>Dashboard.tsx</code>), extracts standalone <code>/artifact/*</code> pages and open Artifact panel source, strips Tailwind language banners above code fences, and preserves uploaded PDF names and raster images.</p>
         </div>
         <div class="card">
           <h3>Turn-Scoped Web Search Citations</h3>
@@ -197,8 +197,8 @@ Use an append-only ledger table first and introduce read projections only when q
           <p>Yes. KeepThread isolates Claude Extended Thinking blocks into collapsible <code>&gt; [!note]- Thinking Process</code> Obsidian callouts by default, and includes a 1-click <strong>Thinking On/Off</strong> toggle in the popup when you want to exclude reasoning traces from a specific note.</p>
         </details>
         <details>
-          <summary>Does KeepThread preserve Claude Artifact card titles, attachments, and images?</summary>
-          <p>Yes. KeepThread preserves button-wrapped Artifact titles (including multi-span filenames like <code>Dashboard.tsx</code>), records uploaded PDF and file attachment names once without duplicating thumbnails, and archives conversation images locally into <code>assets/keepthread/</code>.</p>
+          <summary>Does KeepThread preserve Claude Artifacts, code blocks, attachments, and images?</summary>
+          <p>Yes. KeepThread preserves button-wrapped Artifact titles (including multi-span filenames like <code>Dashboard.tsx</code>), captures standalone <code>claude.ai/artifact/*</code> pages and open Artifact side-panel code/document source, strips redundant Tailwind code headers, records uploaded file names once, and archives conversation images locally into <code>assets/keepthread/</code>.</p>
         </details>
         <details>
           <summary>Does KeepThread send my Claude conversations to any external server?</summary>
@@ -225,6 +225,7 @@ Use an append-only ledger table first and introduce read projections only when q
           <a href="./index.html">Home</a>
           <a href="./guide.html">Quick Guide</a>
           <a href="./compare.html">Compare</a>
+          <a href="./changelog.html">Changelog</a>
           <a href="mailto:support@jianlanzhiwei.com">Support</a>
           <a href="./privacy.html">Privacy</a>
         </div>
