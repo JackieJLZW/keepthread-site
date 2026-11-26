@@ -9,7 +9,7 @@ Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbffl
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
 Firefox Add-ons (AMO): https://addons.mozilla.org/en-US/firefox/addon/keepthread/ (v1.4.3 awaiting review)
 Support: support@jianlanzhiwei.com
-Latest Release: v1.4.3 (hotfix preventing Chrome FileSystemDirectoryHandle.queryPermission startup hangs + full v1.4.2 feature set; submitting to Chrome Web Store, Microsoft Edge Add-ons, and Firefox AMO; Chrome Web Store live v1.4.1; Microsoft Edge Add-ons live v1.3.0)
+Latest Release: v1.4.3 (hotfix preventing Chrome FileSystemDirectoryHandle.queryPermission startup hangs + full v1.4.2 feature set; in review on Chrome Web Store, Microsoft Edge Add-ons, and Firefox AMO; Chrome Web Store live v1.4.1; Microsoft Edge Add-ons live v1.3.0)
 
 ## Key Facts
 - **8-in-1 AI Platform Support (`v1.4.2`):**
