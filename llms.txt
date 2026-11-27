@@ -7,7 +7,7 @@ Website: https://keepthread.jianlanzhiwei.com/
 Changelog: https://keepthread.jianlanzhiwei.com/changelog.html
 Chrome Web Store: https://chromewebstore.google.com/detail/mgoimbdbkbfkkobhbbfflmhjklfppkaf
 Microsoft Edge Add-ons: https://microsoftedge.microsoft.com/addons/detail/egenkjkggankklhmildnhiccfgjepani
-Firefox Add-ons (AMO): https://addons.mozilla.org/en-US/firefox/addon/keepthread-sync-chatgpt-claude/ (v1.4.4 awaiting review)
+Firefox Add-ons (AMO): https://addons.mozilla.org/en-US/firefox/addon/keepthread/ (v1.4.4 awaiting review)
 Support: support@jianlanzhiwei.com
 Latest Release: v1.4.4 (adds 1-click Capture Open AI Tabs, Bulk Sync live progress & Retry Failed, per-note default #tag deselection, Perplexity Reasoning callouts, DeepSeek think-header cleanup, multi-line <br>/<div> code & standalone MathML fidelity, and virtualized pre-export confirmation; v1.4.3 live on Chrome Web Store; v1.4.4 in review across Chrome Web Store, Microsoft Edge Add-ons, and Firefox AMO)
 
