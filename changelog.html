@@ -160,8 +160,50 @@
       <article class="release latest">
         <div class="rel-head">
           <div class="rel-ver">
-            v1.4.3
+            v1.4.4
             <span class="tag tag-purple">Latest Release</span>
+          </div>
+          <span class="rel-date">2026-11-27</span>
+        </div>
+        <ul>
+          <li>
+            <strong>1-Click "Capture Open AI Tabs" (Zero Extra Permissions)</strong>: Scan and archive
+            every open ChatGPT, Claude, Gemini, AI Studio, Perplexity, DeepSeek, Grok, Kimi, and GLM
+            tab in a single click right from the Archive sidebar—using KeepThread's existing narrow
+            host permissions, fast-skipping sleeping Memory-Saver tabs, protecting richer saved
+            archives, and atomically respecting local archive quotas.
+          </li>
+          <li>
+            <strong>Bulk Sync Live Progress, Custom Title Parity &amp; 1-Click Retry Failed</strong>:
+            Added live <code>Syncing X/Y</code> progress feedback, custom-title propagation across
+            both Bulk Vault Sync and Bulk ZIP export, and instant <code>Retry Failed (N)</code> /
+            <code>Select Failed</code> recovery when partial or cherry-picked notes are held for review.
+          </li>
+          <li>
+            <strong>Per-Note Default Tag Deselection &amp; Pre-Export Truncation Guard</strong>:
+            Click any inherited default tag chip (such as <code>#ai-chat</code> or
+            <code>#chatgpt</code>) in Popup or Vault to exclude it for that specific note across all
+            exits, lossless re-syncs, Bulk ZIP, and JSON backups. Added pre-export confirmation on
+            long virtualized threads so off-screen turns aren't missed before running
+            <code>Full Capture</code>.
+          </li>
+          <li>
+            <strong>Perplexity Reasoning Callouts, DeepSeek Header Cleanup &amp; Code/MathML Fidelity</strong>:
+            Extracts Perplexity Reasoning / Pro Search blocks into collapsible
+            <code>&gt; [!note]- Thinking Process</code> callouts with strict citation isolation when
+            <code>Thinking: Off</code>; strips DeepSeek <code>Thought for Xs</code> /
+            <code>已深度思考</code> headers inside thinking callouts; and preserves
+            <code>&lt;br&gt;</code> / per-line <code>&lt;div&gt;</code> code newlines plus standalone
+            <code>&lt;math&gt;</code> MathML formulas.
+          </li>
+        </ul>
+      </article>
+
+      <article class="release">
+        <div class="rel-head">
+          <div class="rel-ver">
+            v1.4.3
+            <span class="tag">Live on Chrome Web Store</span>
           </div>
           <span class="rel-date">2026-11-26</span>
         </div>
@@ -237,7 +279,6 @@
         <div class="rel-head">
           <div class="rel-ver">
             v1.4.1
-            <span class="tag">Live on Chrome Web Store</span>
           </div>
           <span class="rel-date">2026-11-25</span>
         </div>
